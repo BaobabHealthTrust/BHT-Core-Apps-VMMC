@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.min.css">
+  <script src="/assets/js/moment.js"></script>
+  <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+  <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/moment.js"></script>
+  <script src="/assets/js/core.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+  <style>
+    #name-title {
+      text-decoration: underline;
+      margin-top: 3%;
+    }
+
+  </style>
+</head>
+<body>
+
+    <div class="demo-header-cell demo-left">
+    <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
+      <div class="birthdates">
+        <span class="headers">
+          <strong>Temperature:</strong>
+        </span> 
+        <span id="date-lmp"></span> 
+      </div>
+      <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="fundus-by-lmp"></span></div>
+      <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="anc-visits"></span></div>
+    
+    </div>
+
+      <script>
+      if(sessionStorage.programID === "1" && sessionStorage.switchedFromANC){
+        sessionStorage.setItem("programID", 12);
+        sessionStorage.setItem("switchedFromANC", false);
+      }
+      var apiURL = sessionStorage.getItem("apiURL");
+      var apiPort = sessionStorage.getItem("apiPort");
+      var apiProtocol = sessionStorage.getItem("apiProtocol");
+      var id = sessionStorage.getItem("patientID");
+      var program_id = sessionStorage.programID;
+
+      function ajaxRequest() {
+        var url = 'http://' + apiURL + ':' + apiPort 
+        url += '/api/v1/programs/'+program_id+'/patients/' + id;
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              var results = JSON.parse(this.responseText);
+              document.getElementById("date-lmp").innerHTML = ((results.date_of_lnmp !== "") ? results.date_of_lnmp : "No LMP Date Available");
+              document.getElementById("fundus-by-lmp").innerHTML = ((results.fundus !== "") ? results.fundus : "")  
+              document.getElementById("anc-visits").innerHTML = ((results.anc_visits !== "") ? results.anc_visits : "No ANC visit Number Available");
+              document.getElementById("current-outcome").innerHTML =  ((results.current_outcome !== "") ? results.current_outcome : "No Outcome Available");
+            }
+          }
+        };
+        try {
+          req.open('GET', url, true);
+          req.setRequestHeader('Authorization', sessionStorage.getItem('authorization'));
+          req.send(null);
+        } catch (e) {
+        }
+      }
+
+      ajaxRequest();
+
+function fundusByLMP(fundus_by_lmp) {
+  var year = fundus_by_lmp.split('/')[2];
+  var month = fundus_by_lmp.split('/')[1];
+  var day = fundus_by_lmp.split('/')[0];
+  fundus_by_lmp = (year + '-' + month + '-' + day);
+
+  var date1 = new Date(sessionStorage.sessionDate);
+  var date2 = new Date(moment(fundus_by_lmp).format('YYYY-MM-DD'));
+  return dateDiffInMonths(date1, date2);
+}
+
+function dateDiffInMonths(dt2, dt1) {
+  var months;
+  months = (dt2.getFullYear() - dt1.getFullYear()) * 12;
+  months -= dt1.getMonth() + 1;
+  months += dt2.getMonth();
+  return months <= 0 ? 0 : months;
+}
+
+      </script>
+</body>
+</html>

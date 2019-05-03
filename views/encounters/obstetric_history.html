@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Obstetric history</title>
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/yes_no_ctrls.js"></script>
+    <link rel="stylesheet" href="/assets/css/yes_no_ctrls.css" type="text/css"/>
+    <link rel="stylesheet" href="/apps/ANC/assets/css/obstetric_history.css" type="text/css"/>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/obstetric_history.js"></script>
+  </head>
+
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <form>
+            <input type="hidden" name="data" id="data" />
+            <input type="hidden" name="data_obj" id="data_obj" />
+            <input type="hidden" name="abortion_obj" id="abortion_obj" />
+
+            <input field_type="number" type="text"
+              helpText="Gravida" id="gravida" 
+              name="gravida" 
+              tt_onLoad="submitButton();
+                __$('zero').style.display = 'none';
+                showCategory2('Obstetric history');" 
+              tt_pageStyleClass="NumbersOnly"
+              absoluteMin="1" max="9" absoluteMax="19"
+              validationRule="^[0-9]+$"
+              validationMessage="Enter the valid number."
+              tt_onUnload="__$('gravida').value == __$('touchscreenInput'+tstCurrentPage).value"
+            />
+
+            <input field_type="number" type="text"
+              helpText="Para" id="para" 
+              name="para" 
+              condition="$('gravida').value > 1;"
+              tt_onLoad="$('nextButton').onmousedown = function(){ gotoNextPage(); };
+                showCategory2('Obstetric history');data = {};
+                $('touchscreenInput' + tstCurrentPage).setAttribute('absoluteMax', (__$('gravida').value - 1)); 
+                details_available = []"
+              tt_onUnload="if($('para').value == 0){}; 
+                $('abortions').setAttribute('absoluteMax', (parseInt(__$('gravida').value - parseInt(__$('para').value) -1 )));
+                $('abortions').setAttribute('absoluteMin', (parseInt(__$('gravida').value - parseInt(__$('para').value) -1 )));
+                $('abortions').setAttribute('validationRule', '[' + (parseInt(__$('gravida').value) -
+                parseInt(__$('para').value) - 1) + ']');
+                $('abortions').setAttribute('validationMessage', 'Expected value is ' + (parseInt(__$('gravida').value) -
+                parseInt($('para').value) - 1));$('abortions').removeAttribute('validationRule'); 
+                $('abortions').removeAttribute('validationMessage'); calculateAbortions();"
+              tt_pageStyleClass="NumbersOnly" 
+            />
+
+            <input name="number of abortions" id="abortions"
+              helpText="Number of abortions" tt_pageStyleClass="NumbersOnly"
+              condition="false" validationRule="[0-5]"
+              validationMessage="Check your value"
+            />
+
+            <input id="knonw_pregnancies" optional="true"
+              helpText="Pregnancies with available information"
+              tt_onLoad="showCategory2('Obstetric history');loadSelections(); 
+                jQuery('.dcimg').click(); showCategory2('Obstetric history');"
+              condition="$('gravida').value > 1 && $('para').value > 0" 
+              name="known_pregnancies"
+              tt_onUnload="calculateAbortions();"
+            />
+
+            <select name="still birth" id="ever_had_still_births"
+              helptext="Still Births"
+              tt_onLoad=" parsedConceptName = 'STILL BIRTH'"
+              tt_onUnLoad="parsedConceptName = ''"
+              condition="false">
+
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+
+            </select>
+        
+            <select name="episiotoy" id="ever_had_episiotomy"
+              helptext="Episiotomy" tt_onLoad=" parsedConceptName = 'EPISIOTOMY'"
+              tt_onUnLoad="parsedConceptName = ''"
+              condition="false">
+
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+
+            </select>
+
+            <select name="caesarean section" id="ever_had_c_sections"
+              helpText="C-sections" tt_onLoad=" parsedConceptName = 'Caesarean section'"
+              tt_onUnload="parsedConceptName = ''"
+              condition="false">
+
+                <option value=""></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+
+            </select>
+
+            <select name="vacuum extraxtion delivery" 
+              id="ever_had_a_vacuum_extraction"
+              helpText="Vacuum extraction"
+              tt_onLoad=" parsedConceptName = 'Vacuum extraction delivery'"
+              tt_onUnload="parsedConceptName = ''"
+              condition="false">
+
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              
+            </select>
+
+            <select name="HEMORRHAGE" id="hemorrhage"
+              helptext="Hemorrhage" tt_onLoad=" parsedConceptName = 'HEMORRHAGE'"
+              tt_onUnLoad="parsedConceptName = ''"
+              condition="false">
+              
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              
+            </select>
+            
+            <select name="pre-eclampsia" id="pre_eclampsia"
+              helptext="Pre-Eclampsia" tt_onLoad=" parsedConceptName = 'PRE-ECLAMPSIA'"
+              tt_onUnLoad="parsedConceptName = ''"
+              condition="false">
+
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+
+            </select>
+        
+            <select name="eclampsia" id="eclampsia"
+              helptext="Eclampsia" tt_onLoad=" parsedConceptName = 'ECLAMPSIA'"
+              tt_onUnLoad="parsedConceptName = ''"
+              condition="false">
+
+              <option value=""></option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+
+            </select>
+        
+            <input name="pregnancy details" type="text"
+              id="input_page" helptext="Pregnancy details" 
+              tt_onLoad="jQuery('#clearButton').css('display', 'none');parsedConceptName = ''; 
+              loadInputWindow(); showCategory2('Obstetric history');"
+              tt_BeforeUnLoad="buildParams(); console.log(test_code().toString());"
+              optional="true"
+              condition="$('gravida').value > 1 && $('para').value !== 'Unknown'" />
+        
+            <input name="complications" id="complications"
+              helptext="Previous complications" tt_onLoad="jQuery('#clearButton').css('display', 'none');
+                loadSplitSelections(); showCategory2('Obstetric history');
+                changeSubmitFunction();"
+              tt_BeforeUnLoad="buildParams();"
+              condition="$('gravida').value > 1"
+            />
+
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "encounters": {
+  "registration": {
+      "available": true,
+      "activitiesIcon": "/assets/images/registration.png",
+      "url": "/apps/VMMC/views/encounters/registration.html"
+    },
+   "vitals": {
+      "available": true,
+      "activitiesIcon": "/assets/images/vitals.png",
+      "url": "/views/patient/vitals.html"
+    },
+    "medical history": {
+      "available": true,
+      "activitiesIcon": "/assets/images/medical_history.png",
+      "url": "/apps/VMMC/views/encounters/medical_history.html"
+    },
+    "hiv status": {
+      "available": true,
+      "activitiesIcon": "/assets/images/hiv-staging.png",
+      "url": "/apps/VMMC/views/encounters/lab_results.html"
+    },
+    "genital examination": {
+      "available": true,
+      "activitiesIcon": "/assets/images/diagnosis.png",
+      "url": "/apps/VMMC/views/encounters/examination.html"
+    },
+    "summary assessment": {
+      "available": true,
+      "activitiesIcon": "/assets/images/social_history.png",
+      "url": "/apps/VMMC/views/encounters/summary_assessment.html"
+    },
+    "circumcision": {
+      "available": true,
+      "activitiesIcon": "/assets/images/medical_male_circumcision.png",
+      "url": "/apps/VMMC/views/encounters/circumcision.html"
+    },
+    "post-op review": {
+      "available": true,
+      "activitiesIcon": "/assets/images/consultation.png",
+      "url": "/apps/VMMC/views/encounters/postop_review.html"
+    },
+    "follow up": {
+      "available": true,
+      "activitiesIcon": "/assets/images/surgical_history.png",
+      "url": "/apps/VMMC/views/encounters/follow_up.html"
+    }
+  },
+  "activities": {
+    "url": "/apps/VMMC/views/activities.html",
+    "tasks": [
+      ["REGISTRATION CONSENT", "registration consent"],
+      ["MEDICAL HISTORY", "medical history"],
+      ["VITALS", "vitals"],
+      ["HIV STATUS", "hiv status"],
+      ["GENITAL EXAMINATION", "genital examination"],
+      ["SUMMARY ASSESSMENT", "summary assessment"],
+      ["CIRCUMCISION", "circumcision"],
+      ["POST-OP REVIEW", "post-op review"],      
+      ["FOLLOW UP", "follow up"]
+    ]
+  },
+    
+  "others": [
+    {
+      "activitiesName": "National ID (Print)",
+      "available": false,
+      "activitiesIcon": "/assets/images/barcode.png",
+      "activitiesDescription": "Print Patient National ID",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    },
+    {
+      "activitiesName": "Lab activities",
+      "available": false,
+      "activitiesIcon": "/assets/images/lab.png",
+      "activitiesDescription": "Print Patient Visit Summary",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    },
+    {
+      "activitiesName": "Demographics (Print)",
+      "available": false,
+      "activitiesIcon": "/assets/images/print.png",
+      "activitiesDescription": "Print Patient Demographics",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    },
+    {
+      "activitiesName": "Demographics (Edit)",
+      "available": false,
+      "activitiesIcon": "/assets/images/edit.png",
+      "url": "/views/patient/edit_demographics.html",
+      "activitiesDescription": "Print Patient Demographics",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    },
+    {
+      "activitiesName": "Change session date",
+      "available": false,
+      "activitiesIcon": "/assets/images/time.png",
+      "url": "/views/change_session_date.html",
+      "activitiesDescription": "Change session date (for retrospective entry)",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    },
+    {
+      "activitiesName": "Program(s)",
+      "available": false,
+      "activitiesIcon": "/assets/images/programs.png",
+      "url": "/views/patient/programs.html",
+      "activitiesDescription": "View / update patient's programs",
+      "comment": "these are examples, add another application with this template at the end of these curly braces by adding a comma and copying this template"
+    }
+  ]
+}

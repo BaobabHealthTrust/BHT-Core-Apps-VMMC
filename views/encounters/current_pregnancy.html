@@ -1,0 +1,107 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Encounters New</title>
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/yes_no_ctrls.js"></script>
+    <link rel="stylesheet" href="/assets/css/yes_no_ctrls.css" type="text/css"/>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/assets/js/httpUtils.js"></script>
+    <script type="text/css" charset="utf8" src="/stylesheets/keyboard.css"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/current_pregnancy.js"></script>
+
+    <style type="text/css">
+      .Date #num {
+        display: none;
+      }
+
+      .exclude #today {
+        display: none;
+      }
+
+      .header {
+        -moz-user-select: none;
+        font-size: 2em;
+        padding-left: 25px;
+        padding-top: 5px;
+      }
+      
+      ul {
+        list-style-type: none;
+      }
+      
+      li {
+        -webkit-transition: background-color 0.3s linear;
+        -moz-transition: background-color 0.3s linear;
+        -ms-transition: background-color 0.3s linear;
+        -o-transition: background-color 0.3s linear;
+        transition: background-color 0.3s linear;
+      }
+      
+    </style>
+  </head>
+      <body id="mateme">
+        <div id="container">
+          <div id="content">
+          
+          <form>
+            <input type="hidden" name="week_of_first_visit" id="week_of_first_visit"/>
+            <input tt_onLoad="showCategory2('Current pregnancy');
+                timedEvent = setTimeout('calculateEDOD()', 100); initializeDate()"
+              field_type="date" helpText="Last Normal Menstrual Period"
+            id="lnmp" name="previous_hiv_test"
+            tt_onUnload="clearTimeout(timedEvent);getLocations();"
+            tt_pageStyleClass="exclude" type="text"/>
+
+            <input type="text" name="Estimate LMP" id="estimate_lmp" 
+              condition="$('lnmp').value == 'Unknown'" helpText="Gestation (months)"
+              field_type="number" tt_pageStyleClass="NumbersOnly" 
+              tt_onUnload="estimateDates(__$('touchscreenInput' + tstCurrentPage).value);"
+              max="6" absoluteMax="10" />
+
+          <select id="planned_delivery_place" name="planned_delivery_place"
+            tt_onLoad="showCategory2('Current pregnancy');addHereButton();" 
+            helpText="Planned delivery place" tt_onUnload="">
+
+          </select>
+
+          <select name="bed_net_available_for_use" id="bed_net_available_for_use"
+            helpText="Mosquito net in good condition available for own use"
+            tt_onLoad="showCategory2('Current pregnancy'); removeHereButton();">
+
+            <option value=""></option>  
+            <option value="yes">Yes</option>  
+            <option value="no">No</option>  
+
+          </select>
+
+          <select name="bed_net_given" id="bed_net_given"
+            tt_onLoad="showCategory2('Current pregnancy');"
+            condition="$('bed_net_available_for_use').value == 'no';"
+            helpText="Bed net given today">
+
+            <option value=""></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+
+          </select>
+
+          <input type="text" name="previous_ttv_given" id="ttv_given"
+            helpText="Previous TTV given before this pregnancy"
+            tt_onLoad="showCategory2('Current pregnancy');
+              changeSubmitFunction();" field_type="number" 
+            tt_pageStyleClass="NumbersOnly">
+          
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

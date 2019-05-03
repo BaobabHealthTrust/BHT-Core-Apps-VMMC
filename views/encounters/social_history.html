@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Social History</title>
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <!-- <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/standard.js" defer="true"></script> -->
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <style>
+      li.highlighted {
+        background-color: lightblue;
+      }
+      li {
+        cursor: pointer;
+        font-size: 1.5em;
+        margin: 2px;
+        -moz-user-select: none;
+      }
+      .inputFrameClass {
+        height: 550px !important;
+      }
+
+      #holder {
+        height: 550px !important;
+      }
+    </style>
+
+    <script type="text/javascript" src="/assets/js/yes_no_ctrls.js"></script>
+    <link rel="stylesheet" href="/assets/css/yes_no_ctrls.css" type="text/css">
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/apps/ART/assets/js/arv_number.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/social_history.js"></script>
+  </head>
+  
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <form>
+            <select name="Patient currently smokes"
+              id="smoker" tt_requireNextClick="false"
+              helptext="Currently Smoking " 
+              condition='false' tt_onLoad="">
+              
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+
+            </select>
+
+            <select name="Patient currently consumes alcohol"
+              id="alcohol" tt_requireNextClick="false"
+              helptext="Currently taking alcohol" 
+              condition='false' tt_onLoad="">
+
+              <option value=""></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+
+            </select>
+
+            <select name="Civil status"
+              id="civil_status" tt_requireNextClick="false"
+              helptext="Marital status" 
+              condition='false' tt_onLoad="">
+
+              <option value=''></option>
+              <option value="Never Married">Never Married</option>
+              <option value="Married">Married</option>
+              <option value="Separated">Separated</option>
+              <option value="Divorced">Divorced</option>
+
+            </select>
+
+            <input type="text" name="social information"
+            id="social_information" helptext="Social Information" 
+            tt_onLoad="v = addValidationInterval(); showCategory2('Social history');
+            jQuery('#backButton').css('display', 'none');
+            jQuery('#clearButton').css('display', 'none');
+            loadSplitSelections();"
+            tt_onUnLoad="clearInterval(v);"/>
+        
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PMTCT</title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <!-- <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/standard.js" defer="true"></script> -->
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/yes_no_ctrls.js"></script>
+    <link rel="stylesheet" href="/assets/css/yes_no_ctrls.css" type="text/css">
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/apps/ART/assets/js/arv_number.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/pmtct.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/common.js"></script>
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <form>
+          <input type="text" name="summary"
+            tt_onLoad="__$('keyboard').style.display = 'none';
+            addYesNo();changeSubmitFunction();"
+            tt_pageStyleClass= "NoControls" helpText="PMTCT" optional = "true"/>
+            
+            <select name="reason for not starting art" 
+              id="reason_for_not_starting_art"
+              helpText="Reason for not starting ART"
+              tt_onLoad="submitFunction(); showCategory2('PMTCT');">
+
+                <option value=""></option>
+                <option value="Already on art at another facility">
+                  Already on ART at another facility
+                </option>
+                <option value="To be done in another room">
+                  To be done in another room
+                </option>
+                <option value="Not willing">
+                  Not willing
+                </option>
+
+            </select>
+            
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

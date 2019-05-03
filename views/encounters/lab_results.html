@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>ANC - Lab Results</title>
+    <link rel="stylesheet" href="/assets/css/yes_no_ctrls.css" type="text/css"/>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/dashboard.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/httpUtils.js"></script>
+    <script type="text/javascript" src="/assets/js/GlobalProperty.js"></script>
+    <script type="text/javascript" src="/assets/js/yes_no_ctrls.js"></script>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/ANC/assets/js/lab_results.js"></script>
+    <style>
+      #summary{
+        font-size: 1.8em;
+        padding: 25px;
+      }
+      #summary .value{
+        color: red;
+        font-style: italic;
+      }
+    </style>
+    
+  </head>
+
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <form>
+          <input type="text" name="showSummary" 
+            tt_onLoad="showCategory2('Lab results'); showARTSummary();
+              $('keyboard').style.display = 'none'; $('clearButton').style.display = 'none';"
+            optional="true" tt_pageStyleClass="NoControls NoKeyboard"
+            condition="artHIVStatus();"
+            helpText="ART Summary"
+          \>
+
+          <input type="text" name="lab-results" condition="checkCondiditions();"
+            tt_onLoad="__$('keyboard').style.display = 'none'; 
+              $('clearButton').style.display = 'none'; hideBackButton(); 
+              addYesNoToLabTests(); addHIVOption();" optional="true" 
+            tt_onUnload="updatePreviousHIVTestDoneResponse();"
+            tt_pageStyleClass= "NoControls" helpText="Lab Results" />
+
+          <select tt_onLoad="" condition="checkPreviousHIVTest();" 
+            allowFreeText="false" id="prev_hiv_test_result" name="prev_hiv_test_result" 
+            helpText="Previous HIV test results" tt_onUnLoad=""
+            tt_pageStyleClass="NoKeyboard">
+              
+              <option value=''></option>
+              <option value="negative">Negative</option>
+              <option value="positive">Positive</option>
+              <option value="inconclusive">Inconclusive</option>
+              <option value="unknown">Unknown</option>
+              
+          </select>
+
+          <input tt_onLoad="setAbsoluteMaxYear();submitButton();
+            __$('today').style.display='none';initializeDate();" tt_onUnLoad="" 
+            condition="$('prev_hiv_test_result').value !== '';" 
+            field_type="date" helpText="Previous HIV test date"
+            id="prev_hiv_test_date" name="previous hiv test date"
+            tt_pageStyleClass="Date DatesOnly" type="text"/>
+
+          <select tt_onLoad="showCategory2('Available Lab Test Results');" 
+            allowFreeText="false" condition="$('prev_hiv_test_result').value === 'positive'" 
+            helpText="Patient on ART" id="on_art" name="on art" 
+            tt_pageStyleClass="NoKeyboard">
+            
+              <option value=''></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+          
+          </select>
+                    
+          <input tt_onLoad ="showCategory2('Available Lab Test Results');__$('Unknown').style.display='inline';"
+            condition="$('on_art').value === 'Yes';" field_type="text" helpText="ARV Number" 
+            id="arv_number" name="arv_number" tt_pageStyleClass="" 
+            type="text" />
+
+          <input type="text" name="recency-essay" condition="$('prev_hiv_test_result').value === 'positive' && 
+              askRecencyEssay();" tt_onLoad="__$('keyboard').style.display = 'none'; addYesNoToAsanteTest();" 
+            optional="true" tt_pageStyleClass= "NoControls" helpText="Rapid Recency Essay - Asante Results" >
+
+          <select condition="" multiple="multiple" 
+            helpText="Available Lab Tests" optional="true" 
+            id="available_test_results" name="available_test_results" 
+            tt_onLoad="showCategory2('Lab results');changeSubmitFunction();removeHIVOption();" 
+            tt_pageStyleClass="NoKeyboard">
+
+              <option value="hiv_status" id="hiv">HIV</option>
+              <option value="hb">HB</option>
+              <option value="syphilis">Syphilis</option>
+              <option value="malaria">Malaria</option>
+              <option value="blood_group">Blood Group</option>
+              <option value="urine">Urine</option>
+          
+          </select>
+
+          <select tt_onLoad="showCategory2('Available Lab Test Results');
+              changeSubmitFunction();" allowFreeText="false" 
+            condition="getSelectedLabTests().match(/hiv/)" 
+            helpText="HIV Test Result" id="hiv_status" 
+            name="hiv_status" tt_pageStyleClass="NoKeyboard">
+            
+              <option value=''></option>
+              <option value="negative">Negative</option>
+              <option value="positive">Positive</option>
+              <option value="inconclusive">Inconclusive</option>
+              <!-- option value="Unknown">Unknown< /option-->
+          
+          </select>
+
+          <select tt_onLoad="showCategory2('Available Lab Test Results');
+              hivRoute();"  allowFreeText="false" 
+            condition="$('hiv_status').value === 'positive'" 
+            helpText="Patient on ART" id="on_art_1" name="on_art" 
+            tt_pageStyleClass="NoKeyboard">
+            
+              <option value=''></option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+          
+          </select>
+                    
+          <input tt_onLoad ="showCategory2('Available Lab Test Results');
+              __$('Unknown').style.display='inline'; hivRoute();"
+            condition="$('on_art_1').value === 'Yes'" field_type="text" helpText="ARV Number" 
+            id="arv_number_1" name="arv_number" tt_pageStyleClass="" 
+            type="text" />
+
+          <input type="text" name="recency-essay" condition="$('hiv_status').value === 'positive' && 
+              askRecencyEssay();" tt_onLoad="__$('keyboard').style.display = 'none'; addYesNoToAsanteTest();
+              hivRoute();" optional="true" 
+            tt_pageStyleClass= "NoControls" helpText="Rapid Recency Essay - Asante Results" >
+
+          <input condition="getSelectedLabTests().match(/hb/);" field_type="number" 
+            helpText="HB Test Result (g/dl)" id="hb" name="hb" 
+            tt_onLoad="showCategory2('Available Lab Test Results');
+              changeSubmitFunction();" 
+            tt_onUnLoad="" type="text" max="16" min="2"
+            validationCode="" tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
+            validationMessage="" />
+
+          <select tt_onLoad="showCategory2('Available Lab Test Results');
+              changeSubmitFunction" allowFreeText="false" 
+            condition="getSelectedLabTests().match(/syphilis/)" 
+            helpText="Syphilis Test Result" 
+            id="syphilis" name="syphilis" tt_pageStyleClass="NoKeyboard">
+             
+              <option value=''></option>
+              <option value="negative">Negative</option>
+              <option value="positive">Positive</option>
+              
+          </select>
+          
+          <select tt_onLoad="showCategory2('Available Lab Test Results');
+              changeSubmitFunction();" 
+            allowFreeText="false" condition="getSelectedLabTests().match(/malaria/)" 
+            helpText="Malaria Test Result" 
+            id="malaria" name="malaria" tt_pageStyleClass="NoKeyboard">
+              
+              <option value=''></option>
+              <option value="negative">Negative</option>
+              <option value="positive">Positive</option>
+              
+          </select>
+
+          <select tt_onLoad="showCategory2('Available Lab Test Results');
+              changeSubmitFunction();" allowFreeText="false" 
+            condition="getSelectedLabTests().match(/blood_group/);" 
+            helpText="Blood Group Test Result" id="blood_group" 
+            name="blood_group" tt_pageStyleClass="NoKeyboard">
+            
+              <option value=''></option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+              
+          </select>
+          
+          <select condition="getSelectedLabTests().match(/urine/);" multiple="multiple" 
+            helpText="Available Urine Tests Results" optional="true" 
+            id="available_urine_tests" name="urine" 
+            tt_onLoad="showCategory2(Available Lab Test Results);
+              changeSubmitFunction();" 
+            tt_pageStyleClass="NoKeyboard">
+
+              <option value=""></option>
+              <option value="protein">Urine protein</option>
+              <option value="glucose">Glucose</option>
+              <option value="wbc">WBC</option>
+              <option value="rbc">RBC</option>
+              <option value="nitrate">Nitrate</option>
+                    
+          </select>
+          
+          <select allowFreeText="false" condition="getSelectedUrineTests().match(/protein/)" 
+            helpText="Urine Protein Test Result" 
+            id="protein" name="protein" 
+            tt_onLoad="showCategory2('Available Urine Test Results');" 
+            tt_pageStyleClass="NoKeyboard">
+
+              <option value=""></option>
+              <option value="negative">Negative</option>
+              <option value="(+)">(+)</option>
+              <option value="+">+</option>
+              <option value="++">++</option>
+              <option value="+++">+++</option>
+              <option value="++++">++++</option>
+          
+          </select>
+                    
+          <select condition="getSelectedUrineTests().match(/glucose/)" 
+            helpText="Glucose Test Result (mg/dl)" 
+            id="glucose" name="glucose" 
+            tt_onLoad="showCategory2('Available Urine Test Results');
+              changeSubmitFunction();" 
+            tt_onUnLoad="" validationMessage="">
+
+              <option value=""></option>
+              <option value="normal">Normal</option>
+              <option value="+">+</option>
+              <option value="++">++</option>
+              <option value="+++">+++</option>
+                    
+          </select>
+          
+          <input condition="getSelectedUrineTests().match(/wbc/);" 
+            field_type="number" min="1" max="1000000"
+            helpText="White Blood Cells Test Result (cmm)" 
+            id="wbc" name="wbc" absoluteMin="0"
+            tt_onLoad="showCategory2('Available Urine Test Results');
+              changeSubmitFunction();" 
+            tt_onUnload="" type="text" 
+            tt_pageStyleClass="numeric NumbersOnlyWithDecimal" 
+            validationRule="(^([0-9]*[.])?[0-9]+$)"
+            validationMessage="You must enter a valid number"/>
+
+          <input condition="getSelectedUrineTests().match(/rbc/)" 
+            field_type="number" min="1" max="1000000" 
+            helpText="Red Blood Cells Test Result (cmm)" 
+            id="rbc" name="rbc" absoluteMin="0"
+            tt_onLoad="showCategory2('Available Urine Test Results');
+              changeSubmitFunction();" 
+            tt_onUnload="" type="text" 
+            tt_pageStyleClass="numeric NumbersOnlyWithDecimal" 
+            validationRule="(^([0-9]*[.])?[0-9]+$)"
+            validationMessage="You must enter a valid number"/>
+
+          <select tt_onLoad="showCategory2('Available Urine Test Results');
+              changeSubmitFunction();" allowFreeText="false" 
+            condition="getSelectedUrineTests().match(/nitrate/);" 
+            helpText="Nitrate Test Result" id="nitrate" 
+            name="nitrate" tt_onUnload="" tt_pageStyleClass="NoKeyboard">
+            
+              <option value=''></option>
+              <option value="negative">Negative</option>
+              <option value="trace">Trace</option>
+              <option value="positive">Positive</option>
+               
+          </select>
+
+          <input name="commit" type="submit" value="Finish" onmousedown="submitLabResultsEncounter();"/>
+
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

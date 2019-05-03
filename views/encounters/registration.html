@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      var currentTime = moment().format(' HH:mm:ss');
+      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
+
+
+    </script>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
+        defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <style type="text/css">
+
+
+
+        </style>
+
+<form action="" method="POST">
+
+   <select name="observations[][value_coded_or_text]" 
+   id="consent" 
+   tt_pageStyleClass="NoKeyboard" 
+   allowFreeText="false"
+   tt_onLoad="showCategory2('Regisration');" 
+   helpText="Has the client given consent?"><option value=''></option>
+     <option value=""></option>
+    <option value="Yes">Yes</option>
+    <option value="No">No</option></select>
+
+  <select name="observations[][value_coded_or_text_multiple][]" 
+  id="observations__value_coded_or_text_multiple" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  multiple="multiple" 
+  condition="__$('consent').value.toUpperCase() == 'YES'"
+  tt_onLoad="showCategory2('Regisration');" 
+  helpText="How did you learn of this (VMMC) service?"><option value=''></option>
+  <option value=""></option>
+    <option value="Friend">Friend</option>
+    <option value="Family">Family</option>
+    <option value="Partner or Spouse">Partner/Spouse</option>
+    <option value="Health care worker">Health care worker</option>
+    <option value="Poster/Newspaper/Leaflet">Poster/Newspaper/Leaflet</option>
+    <option value="Community Mobiliser">Community Mobiliser</option>
+    <option value="Television/Radio">Television/Radio</option>
+    <option value="Other">Other</option></select>
+
+</form>
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+  // jQuery(document).ready(function(){
+
+  //   var checkExist = setInterval(function() {
+  //     if (jQuery('#cancelButton').length) {
+  //       jQuery('#cancelButton').click(function () {
+  //         yesButton = jQuery("#messageBar button")[0];
+  //         yesButton.onmousedown = function(){
+  //           hideMessage();
+  //           if (patientID.length > 0){
+  //             window.top.location.href = "/patients/show/" + patientID;
+  //           } else {
+  //             window.top.location.href = "/";
+  //           }
+            
+  //         }
+  //       });
+  //       clearInterval(checkExist);
+  //     }
+  //   }, 100); // check every 100ms
+  // });
+
+</script>

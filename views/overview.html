@@ -1,0 +1,145 @@
+<script src="/assets/js/moment.js"></script>
+
+<script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+
+<style type="text/css">
+    body {
+        -moz-user-select:none;
+    }
+
+    #stats {
+        width:98%;
+        border:1px solid #eee;
+        margin:10px;
+        margin-top: 0px;
+        background:white;
+    }
+    #stats td, #stats th {
+        text-align:center;
+    }
+    .odd {
+        background-color: #eeeef7;
+    }
+    .even {
+        background-color: #fff;
+    }
+
+    #table_div {
+        overflow:auto;
+        height: 320px;
+        background-color: white;
+        border: solid 1px #eee;
+        border-width: 1px;
+        overflow: hidden;
+    }
+
+</style>
+<div id="tab" style="background-color: #fff; border-top: 1px #fff solid; margin-top: 0px;">
+    <h2 style="text-align: center; color: #6281a7; margin-top: -2px; margin-bottom: 0px;">Current Visit Statistics</h2>
+    <table id="stats" style="height: 315px; margin-bottom: 8px;" cellpadding="5">
+        <tr style="color: #fff; background-color: #6281a7;">
+            <th style="text-align:left;">Task Type </th>
+            <th id="username">Me</th>
+            <th>Today</th>
+            <th>This Year</th>
+            <th>Total To Date</th>
+        </tr>
+        <tr class="even">
+            <td style="text-align:left;">Total Registered</td>
+            <td id="registration_user">0</td>
+            <td id="registration_today">0</td>
+            <td id="registration_this_year">0</td>
+            <td id="registration_total_to_date">0</td>
+        </tr>
+        <tr class="odd">
+            <td style="text-align:left;">Vitals</td>
+            <td id="vitals_user">0</td>
+            <td id="vitals_today">0</td>
+            <td id="vitals_this_year">0</td>
+            <td id="vitals_total_to_date">0</td>
+        </tr>
+        <tr class="even">
+            <td style="text-align:left;">Medical History</td>
+            <td id="admission_diagnosis_user">0</td>
+            <td id="admission_diagnosis_today">0</td>
+            <td id="admission_diagnosis_this_year">0</td>
+            <td id="admission_diagnosis_total_to_date">0</td>
+        </tr>
+        <tr class="odd">
+            <td style="text-align:left;">HIV/ART Status</td>
+            <td id="baby_delivery_user">0</td>
+            <td id="baby_delivery_today">0</td>
+            <td id="baby_delivery_this_year">0</td>
+            <td id="baby_delivery_total_to_date">0</td>
+        </tr>
+        <tr class="even">
+            <td style="text-align:left;">Genital Examination</td>
+            <td id="patients_delivered_user">0</td>
+            <td id="patients_delivered_today">0</td>
+            <td id="patients_delivered_this_year">0</td>
+            <td id="patient_total_to_date">0</td>
+        </tr>
+        <tr class="odd">
+            <td style="text-align:left;">Circumcision</td>
+            <td id="referrals_out_user">0</td>
+            <td id="referrals_out_today">0</td>
+            <td id="referrals_out_this_year">0</td>
+            <td id="referrals_out_total_to_date">0</td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    var stats = {all: true, encounter_types: [5, 61, 6, 41, 40, 63]};
+    var apiProtocol = sessionStorage.apiProtocol;
+    var apiURL = sessionStorage.apiURL;
+    var apiPort = sessionStorage.apiPort;
+    var programID = sessionStorage.programID;
+
+    function dashboardStats(stats) {
+
+        for (stat in stats) {
+
+            var statistics = stats[stat];
+
+            var statUser = statistics.stats_by_user;
+            var statToday = statistics.stats_today;
+            var statThisYear = statistics.stats_this_year;
+
+            document.getElementById(stat + '_user').innerHTML = statUser;
+            document.getElementById(stat + '_today').innerHTML = statToday;
+            document.getElementById(stat + '_this_year').innerHTML = statThisYear;
+
+            document.getElementById(stat + '_total_to_date').innerHTML = statistics.stats_total_to_date;
+
+        }
+
+    }
+
+    function fetchDashboardStats() {
+        var url = apiProtocol + "://" + apiURL + ":" + apiPort + "/api/v1";
+        url += "/dashboard_stats?date=" + sessionStorage.sessionDate;
+        url += "&program_id=" + sessionStorage.programID;
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
+                var obj = JSON.parse(this.responseText);
+                dashboardStats(obj);
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.setRequestHeader('Authorization', sessionStorage.getItem("authorization"));
+        xhttp.setRequestHeader('Content-type', "application/json");
+        xhttp.send();
+    }
+
+    setTimeout("fetchDashboardStats()", 200);
+
+    var usernameField = document.getElementById("username");
+
+    if (usernameField) {
+        usernameField.innerHTML = sessionStorage.username.toUpperCase();
+    }
+</script>

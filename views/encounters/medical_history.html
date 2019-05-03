@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      var currentTime = moment().format(' HH:mm:ss');
+      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
+
+
+    </script>
+
+<!--     <script type="text/javascript" src="/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/jquery-1.3.2.min.js"></script> -->
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
+        defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <style type="text/css">
+
+        </style>
+
+<script type="text/javascript">
+
+  function displayMessage(options){
+
+    setTimeout(function(){
+
+        if (options == 'diabetes' && __$('diabetes').value == 'Yes')
+        {
+          showMessage('Note: Client has Diabetes and may not be suitable for circumcision',null,10000000000);
+        }
+        else if (options == 'bleeding' && __$('bleeding').value == 'Yes')
+        {
+          showMessage('Note: Client has Bleeding disorder and may not be suitable for circumcision',null,10000000000);
+        }
+        else if (options == 'ulcers' && __$('ulcers').value == 'Yes')
+        {
+          showMessage('Note: Client has Genital ulcers and may not be suitable for circumcision',null,10000000000);
+        }
+        else if (options == 'urination' && __$('urination').value == 'Yes')
+        {
+          showMessage('Note: Client has Painful urination and may not be suitable for circumcision',null,10000000000);
+        }
+
+       
+    },100);  
+}
+
+</script>
+
+<form action="" method="POST">
+
+  <select name="observations[][value_coded_or_text]" 
+  id="medical_history" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  helpText="Any medical history?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+  
+  <select name="observations[][value_coded_or_text]" 
+  id="diabetes" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Diabetes?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  tt_onUnLoad="displayMessage('diabetes');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+ <select name="observations[][value_coded_or_text]" 
+ id="observations__value_coded_or_text" 
+ tt_pageStyleClass="NoKeyboard" 
+ allowFreeText="false" 
+ helpText="Type of diabetes" 
+ tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" 
+ condition="__$('diabetes').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Type 1 diabetes">Type 1 diabetes</option>
+  <option value="Type 2 diabetes">Type 2 diabetes</option>
+  <option value="Unknown">Unknown</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="bleeding" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Bleeding disorder?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  tt_onUnLoad="displayMessage('bleeding');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify the bleeding disorder" 
+  condition="__$('bleeding').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="meds" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Any meds? <span class='helper'> Medical History</span>" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify any meds" 
+  condition="__$('meds').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+
+  <select name="observations[][value_coded_or_text]" 
+  id="allergies" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Allergies?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify allergies" 
+  condition="__$('allergies').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history'); " />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="ulcers" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Genital ulcers?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  tt_onUnLoad="displayMessage('ulcers');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify genital ulcers" 
+  condition="__$('ulcers').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="itching" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Genital itching?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify genital itching" 
+  condition="__$('itching').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="urination" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Painful urination?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  tt_onUnLoad="displayMessage('urination');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify painful urination" 
+  condition="__$('urination').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="other_medical_history" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  helpText="Any other Medical condition?" 
+  tt_requireNextClick="false" 
+  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  helpText="Specify other medical condition" 
+  condition="__$('other_medical_history').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+
+</form>
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+  
+  // jQuery(document).ready(function(){
+
+  //   var checkExist = setInterval(function() {
+  //     if (jQuery('#cancelButton').length) {
+  //       jQuery('#cancelButton').click(function () {
+  //         yesButton = jQuery("#messageBar button")[0];
+  //         yesButton.onmousedown = function(){
+  //           hideMessage();
+  //           if (patientID.length > 0){
+  //             window.top.location.href = "/patients/show/" + patientID;
+  //           } else {
+  //             window.top.location.href = "/";
+  //           }
+            
+  //         }
+  //       });
+  //       clearInterval(checkExist);
+  //     }
+  //   }, 100); // check every 100ms
+  // });
+
+</script>
+
