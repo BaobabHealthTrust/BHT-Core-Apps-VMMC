@@ -18,7 +18,7 @@
     "hiv status": {
       "available": true,
       "activitiesIcon": "/assets/images/hiv-staging.png",
-      "url": "/apps/VMMC/views/encounters/lab_results.html"
+      "url": "/apps/VMMC/views/encounters/hiv_status.html"
     },
     "genital examination": {
       "available": true,

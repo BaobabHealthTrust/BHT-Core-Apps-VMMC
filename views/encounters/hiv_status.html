@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      var currentTime = moment().format(' HH:mm:ss');
+      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
+
+
+    </script>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
+        defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <style type="text/css">
+  
+        </style>
+
+<form action="" method="POST">
+
+  <select name="observations[][value_coded_or_text]" 
+  id="known_hiv_positive" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('HIV/ART status');" 
+  helpText="Known HIV+ (Documented test results)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="currently_taking_arvs" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('HIV/ART status');"
+  helpText="Currently taking ARVs?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="hiv_test_done_today?" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false"
+  tt_onLoad="showCategory2('HIV/ART status');" 
+  helpText="HIV Test done today?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="hiv_test_result" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('HIV/ART status');"
+  condition="__$('hiv_test_done_today?').value.match(/YES/i)" 
+  helpText="HIV Test result"><option value=''></option>
+  <option value=""></option>
+  <option value="Positive">Positive</option>
+  <option value="Negative">Negative</option>
+  <option value="Indeterminate">Indeterminate</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="hiv_test_not_done_reason" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  condition="__$('hiv_test_done_today?').value.match(/NO/i)" 
+  helpText="Reason HIV Test not done"><option value=''></option>
+  <option value=""></option>
+  <option value="Refused">Refused</option>
+  <option value="Previous Positive">Previous Positive</option>
+  <option value="No Reagents available">No Reagents available</option></select>
+
+</form>
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+
+  // jQuery(document).ready(function(){
+
+  //   var checkExist = setInterval(function() {
+  //     if (jQuery('#cancelButton').length) {
+  //       jQuery('#cancelButton').click(function () {
+  //         yesButton = jQuery("#messageBar button")[0];
+  //         yesButton.onmousedown = function(){
+  //           hideMessage();
+  //           if (patientID.length > 0){
+  //             window.top.location.href = "/patients/show/" + patientID;
+  //           } else {
+  //             window.top.location.href = "/";
+  //           }
+            
+  //         }
+  //       });
+  //       clearInterval(checkExist);
+  //     }
+  //   }, 100); // check every 100ms
+  // });
+
+</script>
