@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      tstCurrentDate = "";
+
+
+    </script>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <style type="text/css">
+
+        </style>
+
+<form action="" method="POST">
+
+  <select name="observations[][value_coded_or_text]" 
+  id="contraindications" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Any contraindications?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="contraindications_options" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Select contraindications <span class='helper'> Summary assessment</span>" 
+  condition="__$('contraindications').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Active or symptomatic STIs">Active or symptomatic STIs</option>
+  <option value="Hypertension">Hypertension</option>
+  <option value="Diabetes">Diabetes</option>
+  <option value="Bleeding disorders">Bleeding disorders</option>
+  <option value="Erectile dysfunction">Erectile dysfunction</option>
+  <option value="Anatomical deformities of the penis e.g. hypospodiasis">Anatomical deformities of the penis e.g. hypospodiasis</option>
+  <option value="Chronic paraphimosis">Chronic paraphimosis</option>
+  <option value="Penile cancer">Penile cancer</option>
+  <option value="Other chronic disorders of the penis e.g. filariasis">Other chronic disorders of the penis e.g. filariasis</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="other-contraindications" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Specify other contraindications" 
+  condition="__$('contraindications_options').value == 'Other chronic disorders of the penis e.g. filariasis'" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="Specify-contraindications" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Specify management of contraindications" 
+  condition="__$('contraindications').value.match(/YES/i)" 
+  optional="true" /> 
+
+  <select name="observations[][value_coded_or_text]" 
+  id="circumcision_assessment" 
+  tt_pageStyleClass="NoKeyboard" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  allowFreeText="false" 
+  helpText="Suitable for circumcision?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="not-suitable" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Specify reason" 
+  condition="__$('circumcision_assessment').value.match(/NO/i)" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="appointment-date" 
+  field_type="date" 
+  allowFreeText="true" 
+  absoluteMin="2019-05-10" 
+  maxDate="2019-08-09" 
+  tt_onLoad="__$('today').style.display = 'none';__$('Unknown').style.display = 'none';showCategory2('Summary assessment');" 
+  helptext="Specify Next Appointment date" 
+  condition="__$('circumcision_assessment').value.match(/NO/i)" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="circumcision-consent" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Summary assessment');" 
+  helpText="Does client still want to get circumcised?" 
+  condition="__$('circumcision_assessment').value.match(/YES/i)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+</form>
+<script type="text/javascript">
+
+</script>
+
+
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+
+  // jQuery(document).ready(function(){
+
+  //   var checkExist = setInterval(function() {
+  //     if (jQuery('#cancelButton').length) {
+  //       jQuery('#cancelButton').click(function () {
+  //         yesButton = jQuery("#messageBar button")[0];
+  //         yesButton.onmousedown = function(){
+  //           hideMessage();
+  //           if (patientID.length > 0){
+  //             window.top.location.href = "/patients/show/" + patientID;
+  //           } else {
+  //             window.top.location.href = "/";
+  //           }
+            
+  //         }
+  //       });
+  //       clearInterval(checkExist);
+  //     }
+  //   }, 100); // check every 100ms
+  // });
+
+</script>
