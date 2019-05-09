@@ -23,7 +23,7 @@
     "genital examination": {
       "available": true,
       "activitiesIcon": "/assets/images/diagnosis.png",
-      "url": "/apps/VMMC/views/encounters/examination.html"
+      "url": "/apps/VMMC/views/encounters/genital_exam.html"
     },
     "summary assessment": {
       "available": true,
