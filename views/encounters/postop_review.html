@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      tstUserKeyboardPref = "qwerty";
+
+      tstCurrentDate = "";
+
+
+    </script>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        
+<style type="text/css">
+
+</style>
+
+<form action="" method="POST">
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="post_review_time" 
+  field_type="number" 
+  allowFreeText="true" 
+  tt_onLoad="changeDecimalToColon(); postOp();showCategory2('Post-op review');" 
+  tt_onUnLoad="updateTimeLeft();" 
+  validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
+  validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
+  helpText="Review Time" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="pulse" 
+  field_type="number" 
+  allowFreeText="true"
+  tt_onLoad="showCategory2('Post-op review');" 
+  helptext="Pulse Rate (Beats per Minute)" 
+  min="50" 
+  max="120" 
+  units="bpm" 
+  validationRule="([0-9]+)|Unknown$" 
+  validationMessage="You must enter a number between 0 and 9 (for example: 54)" 
+  tt_pageStyleClass="Numeric NumbersWithUnknownAndDecimal" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="systolic_blood_pressure" 
+  field_type="number" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helptext="Systolic Blood Pressure" 
+  tt_onUnLoad="displayMessage('systolic_blood_pressure');" 
+  tt_pageStyleClass="NumbersWithUnknown" 
+  min="80" 
+  max="150" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="diastolic_blood_pressure" 
+  field_type="number" 
+  allowFreeText="true"
+  tt_onLoad="showCategory2('Post-op review');" 
+  helptext="Diastolic Blood Pressure" 
+  tt_onUnLoad="displayMessage('diastolic_blood_pressure');" 
+  tt_pageStyleClass="NumbersWithUnknown" 
+  min="50" 
+  max="100" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="type_of_pain" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Type of pain"><option value=''></option>
+  <option value=""></option>
+  <option value="None">None</option>
+  <option value="Mild">Mild</option>
+  <option value="Moderate">Moderate</option>
+  <option value="Severe">Severe</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="bandage" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false"
+  tt_onLoad="showCategory2('Post-op review');" 
+  helpText="Bandage (Bleeding)"><option value=''></option>
+  <option value=""></option>
+  <option value="Dry">Dry</option>
+  <option value="Spot">Spot</option>
+  <option value="Soak">Soak</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="other_ae" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Post-op review');"
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Other Adverse Event?"><option value=''></option>
+  <option value=""></option>
+  <option value="None">None</option>
+  <option value="Mild">Mild</option>
+  <option value="Moderate">Moderate</option>
+  <option value="Severe">Severe</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="observations__value_text" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Specify other Adverse Event" 
+  condition="__$('other_ae').value != 'None'" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="meds-given?" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Medication given?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="medication" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Post-op review');"
+  condition="__$('meds-given?').value.match(/YES/i)" 
+  helpText="Specify medication" />
+
+
+  <select name="observations[][value_coded_or_text]" 
+  id="ready-for-discharge" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Ready for discharge"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="appointment-date" 
+  field_type="date" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Post-op review');__$('Unknown').style.display = 'none';"
+  absoluteMin="2019-05-11" 
+  maxDate="2019-08-10" 
+  helptext="Appointment date" 
+  condition="__$('ready-for-discharge').value.match(/YES/i)" />
+
+</form>
+
+
+<script type="text/javascript">
+  var time = "";
+  var time_with_colon;
+
+  function changeDecimalToColon(){
+    decimal = jQuery("#decimal")[0];
+    decimal.innerHTML = '<span>:</span>';
+    decimal.setAttribute("onmousedown", "press(':')")
+  }
+
+  function displayMessage(options){
+
+    setTimeout(function(){
+
+        if (options == 'systolic_blood_pressure' && __$('systolic_blood_pressure').value >= 140 && __$('systolic_blood_pressure').value <= 150)
+        {
+          showMessage('Note: Client Systolic Blood Pressure is high',null,10000000000);
+        }
+        else if (options == 'diastolic_blood_pressure' && __$('diastolic_blood_pressure').value >= 50 && __$('diastolic_blood_pressure').value <= 90 )
+        {
+          showMessage('Note: Client Diastolic Blood Pressure is high',null,10000000000);
+        }
+       
+    },100);  
+}
+
+  function updateTimeLeft(){
+    time = $("touchscreenInput"+tstCurrentPage).value.replace(":",'');
+    time_with_colon = $("touchscreenInput"+tstCurrentPage).value
+  }
+
+  function postOp(){
+    var time = '12:45';
+    time_with_colon = time.replace(":",'');
+
+    $("nextButton").removeAttribute("onmousedown");
+    $("nextButton").onmousedown = function(){
+      current_input_value = parseInt($("touchscreenInput"+tstCurrentPage).value.replace(":",''));
+      if (current_input_value > parseInt(time_with_colon)){
+          gotoNextPage();
+      } else {
+          showMessage("Time greater than time left on the table (<b>" + time + "</b>)")
+      }
+    }
+  }
+
+</script>
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+
+</script>
