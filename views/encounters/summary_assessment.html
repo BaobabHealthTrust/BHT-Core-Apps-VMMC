@@ -40,7 +40,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   tt_onLoad="showCategory2('Summary assessment');" 
-  helpText="Select contraindications <span class='helper'> Summary assessment</span>" 
+  helpText="Select contraindications" 
   condition="__$('contraindications').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Active or symptomatic STIs">Active or symptomatic STIs</option>
@@ -132,26 +132,5 @@
   var patientID = sessionStorage.getItem("patientID");
   var programID = sessionStorage.getItem("programID");
   var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
-
-  // jQuery(document).ready(function(){
-
-  //   var checkExist = setInterval(function() {
-  //     if (jQuery('#cancelButton').length) {
-  //       jQuery('#cancelButton').click(function () {
-  //         yesButton = jQuery("#messageBar button")[0];
-  //         yesButton.onmousedown = function(){
-  //           hideMessage();
-  //           if (patientID.length > 0){
-  //             window.top.location.href = "/patients/show/" + patientID;
-  //           } else {
-  //             window.top.location.href = "/";
-  //           }
-            
-  //         }
-  //       });
-  //       clearInterval(checkExist);
-  //     }
-  //   }, 100); // check every 100ms
-  // });
 
 </script>

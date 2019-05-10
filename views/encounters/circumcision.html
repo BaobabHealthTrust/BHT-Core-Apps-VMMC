@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      tstUserKeyboardPref = "";
+
+      tstCurrentDate = "";
+
+
+    </script>
+
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+
+  </head>
+  <body id="mateme">
+    <div id="container">
+      <div id="content">
+        <style type="text/css">
+  
+        </style>
+
+<form action="" method="POST">
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="circumcision-date" 
+  field_type="date" 
+  allowFreeText="true" 
+  maxDate="2019-08-09" 
+  absoluteMin="2019-05-09" 
+  tt_onLoad="showCategory2('Circumcision');__$('Unknown').style.display = 'none';"
+  helptext="Circumcision Date" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="anaesthesia-time" 
+  field_type="number" 
+  allowFreeText="true" 
+  tt_onLoad="changeDecimalToColon();showCategory2('Circumcision');" 
+  tt_onUnLoad="updateAnaesTime();" 
+  validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
+  validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
+  helpText="Time anaesthesia given (24 Hour clock)" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="observations__value_coded_or_text" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Type of anaesthesia <span class='helper'> Circumcision</span>"><option value=''></option>
+  <option value=""></option>
+  <option value="Local Anaesthesia">Local Anaesthesia (LA)</option>
+  <option value="General Anaesthesia">General Anaesthesia (GA)</option></select>
+
+  <select name="observations[][value_coded_or_text]" 
+  id="anaesthesia" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Anaesthesia <span class='helper'> Circumcision</span>"><option value=''></option>
+  <option value=""></option>
+  <option value="Lidocaine">Lidocaine</option>
+  <option value="Bupivacaine">Bupivacaine</option></select>
+
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="lidocaine-quantity" 
+  field_type="number" 
+  allowFreeText="true" 
+  min="0" 
+  max="2" 
+  optional="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Lidocaine quantity given in percentage" 
+  condition="(__$('anaesthesia').value == 'Lidocaine')" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="lidocaine-mls" 
+  field_type="number" 
+  allowFreeText="true" 
+  min="0" 
+  max="5" 
+  optional="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Lidocaine quantity given in mls " 
+  condition="(__$('anaesthesia').value == 'Lidocaine')" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="bupivacaine-quantity" 
+  field_type="number" 
+  allowFreeText="true" 
+  min="0" 
+  max="0.5" 
+  optional="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Bupivacaine quantity given in percentage" 
+  condition="(__$('anaesthesia').value == 'Bupivacaine')" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="bupivacaine-mls" 
+  field_type="number" 
+  allowFreeText="true" 
+  min="0" 
+  max="5" 
+  optional="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Bupivacaine quantity given in mls" 
+  condition="(__$('anaesthesia').value == 'Bupivacaine')" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="procedure-type" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Circumcision');"
+  tt_onUnLoad="checkAge();" 
+  helpText="Procedure Type <span class='helper'> Circumcision</span>"><option value=''></option>
+  <option value=""></option>
+  <option value="Forceps Guided">Forceps Guided (FG)</option>
+  <option value="Dorsal Slit">Dorsal Slit (DS)</option>
+  <option value="Device">Device</option>
+  <option value="Other">Other</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="other_procedure_type" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Specify Other Procedure Type" 
+  condition="$('procedure-type').value == 'Other'" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="incision_time" 
+  field_type="number" 
+  allowFreeText="true" 
+  tt_onLoad="changeDecimalToColon(); changeDefaultSettings();showCategory2('Circumcision');" 
+  tt_onUnLoad="checkTime(); updateIncisionTime();" 
+  validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
+  validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
+  helpText="Incision time" />
+
+  <select name="observations[][value_coded_or_text]" 
+  id="adverse_events?" 
+  tt_pageStyleClass="NoKeyboard" 
+  tt_onLoad="showCategory2('Circumcision');"
+  allowFreeText="false" 
+  helpText="Any Intra-OP Adverse events"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="specific-adverse-event" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  condition="__$('adverse_events?').value.match(/YES/i)" 
+  helpText="Specify adverse event" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="specific-adverse-event-management" 
+  field_type="alpha" 
+  allowFreeText="true" 
+  tt_onLoad="showCategory2('Circumcision');"
+  condition="__$('adverse_events?').value.match(/YES/i)" 
+  optional="true" 
+  helpText="Specify adverse event management" />
+
+  <input type="text" 
+  name="observations[][value_text]" 
+  id="time_left_table" 
+  field_type="number" 
+  allowFreeText="true"
+  tt_onLoad="changeDecimalToColon(); changeSettings();showCategory2('Circumcision');" 
+  validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
+  validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 
+  tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
+  helpText="Time left table" />
+
+  <input type="text" 
+  name="given_name" 
+  id="given_name" 
+  field_type="alpha" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Assistant circumciser's first name" 
+  ajaxURL="/search/given_name?search_string=" 
+  allowFreeText="true" />
+
+  <input type="text" 
+  name="family_name" 
+  id="family_name" 
+  field_type="alpha" 
+  tt_onLoad="showCategory2('Circumcision');"
+  helpText="Assistant circumciser's last name" 
+  ajaxURL="/search/family_name?search_string=" 
+  tt_onLoad="updateAssistantCircumciserDetails();" 
+  allowFreeText="true" />
+</form>
+
+<script type="text/javascript">
+  var anaesthesia_time = "";
+  var anaesthesia_time_with_colon;
+  var incision_time = "";
+  var incision_time_with_colon;
+
+  function updateAnaesTime(){
+    anaesthesia_time = $("touchscreenInput"+tstCurrentPage).value.replace(":",'');
+    anaesthesia_time_with_colon = $("touchscreenInput"+tstCurrentPage).value
+  }
+
+  function updateIncisionTime(){
+    incision_time = $("touchscreenInput"+tstCurrentPage).value.replace(":",'');
+    incision_time_with_colon = $("touchscreenInput"+tstCurrentPage).value
+  }
+
+  function changeDecimalToColon(){
+    decimal = jQuery("#decimal")[0];
+    decimal.innerHTML = '<span>:</span>';
+    decimal.setAttribute("onmousedown", "press(':')")
+  }
+
+  function checkAge(age){
+    var age = "25"
+    if (age <= 15 && __$('procedure-type').value == 'Forceps Guided'){
+      showMessage('Note: Forceps guided is not recommended for clients under the age of 15',null,10000000000);
+    }else if (age >= 15 && __$('procedure-type').value == 'Dorsal Slit'){
+      showMessage('Note: Dorsal Slit is recommended for clients under the age of 15',null,10000000000);
+    } 
+  }
+
+  function checkTime(){
+    incision_time = $("touchscreenInput"+tstCurrentPage).value.replace(":",'');
+    
+    if(parseInt(anaesthesia_time) > parseInt(incision_time))
+    {
+      alert('Time greater than anaesthesia time'); 
+      return false;
+    }
+    else
+    {
+    }
+  }
+
+  function changeDefaultSettings(){
+    $("nextButton").removeAttribute("onmousedown");
+    $("nextButton").onmousedown = function(){
+      current_input_value = parseInt($("touchscreenInput"+tstCurrentPage).value.replace(":",''));
+      if (current_input_value > parseInt(anaesthesia_time)){
+        gotoNextPage();
+      } else {
+        showMessage("Time greater than anaesthesia time (<b>" + anaesthesia_time_with_colon + "</b>)")
+      }
+    }
+  }
+
+  function changeSettings(){
+    $("nextButton").removeAttribute("onmousedown");
+    $("nextButton").onmousedown = function(){
+      current_input_value = parseInt($("touchscreenInput"+tstCurrentPage).value.replace(":",''));
+      if (current_input_value > parseInt(incision_time)){
+        gotoNextPage();
+      } else {
+        showMessage("Time greater than incision time (<b>" + incision_time_with_colon + "</b>)")
+      }
+    }
+  }
+
+
+  function updateAssistantCircumciserDetails(){
+    $("nextButton").removeAttribute("onmousedown");
+    $("nextButton").onmousedown = function(){
+
+      given_name = $("given_name").value;
+      family_name = $("touchscreenInput"+tstCurrentPage).value;
+
+      names = given_name + " " + family_name;
+      $("assistant_circumciser_details").value = names;
+      gotoNextPage();
+    }
+  }
+</script>
+        <div id="footer">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var patientID = sessionStorage.patientID;
+  var patientID = sessionStorage.getItem("patientID");
+  var programID = sessionStorage.getItem("programID");
+  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
+
+</script>
