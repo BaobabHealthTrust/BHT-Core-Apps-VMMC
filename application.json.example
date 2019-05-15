@@ -1,9 +1,9 @@
 {
   "encounters": {
-  "registration": {
+  "registration consent": {
       "available": true,
       "activitiesIcon": "/assets/images/registration.png",
-      "url": "/apps/VMMC/views/encounters/registration.html"
+      "url": "/apps/VMMC/views/encounters/registration_consent.html"
     },
    "vitals": {
       "available": true,
