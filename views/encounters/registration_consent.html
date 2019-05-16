@@ -4,13 +4,6 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-    <script language="javascript" defer="true">
-      tstUsername = "";
-      var currentTime = moment().format(' HH:mm:ss');
-      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
-
-
-    </script>
 
     <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
         defer="true"></script>
@@ -21,8 +14,17 @@
     <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
     <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/registration_consent.js"></script>
 
   <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+  
+    <script language="javascript" defer="true">
+      tstUsername = "";
+      var currentTime = moment().format(' HH:mm:ss');
+      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
+
+
+    </script>
 
   </head>
   <body id="mateme">
@@ -34,9 +36,9 @@
 
         </style>
 
-<form action="" method="POST">
+<form>
 
-   <select name="observations[][value_coded_or_text]" 
+   <select name="consent" 
    id="consent" 
    tt_pageStyleClass="NoKeyboard" 
    allowFreeText="false"
@@ -46,13 +48,13 @@
     <option value="Yes">Yes</option>
     <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text_multiple][]" 
-  id="observations__value_coded_or_text_multiple" 
+  <select name="knowledge_source" 
+  id="knowledge_source" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   multiple="multiple" 
   condition="__$('consent').value.toUpperCase() == 'YES'"
-  tt_onLoad="showCategory2('Registration');" 
+  tt_onLoad="showCategory2('Registration');changeSubmitFunction();" 
   helpText="How did you learn of this (VMMC) service?"><option value=''></option>
   <option value=""></option>
     <option value="Friend">Friend</option>
@@ -72,11 +74,11 @@
   </body>
 </html>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
   var patientID = sessionStorage.patientID;
   var patientID = sessionStorage.getItem("patientID");
   var programID = sessionStorage.getItem("programID");
   var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
 
-</script>
+</script> -->
