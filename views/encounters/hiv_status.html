@@ -6,9 +6,6 @@
 
     <script language="javascript" defer="true">
       tstUsername = "";
-      var currentTime = moment().format(' HH:mm:ss');
-      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
-
 
     </script>
 
@@ -18,6 +15,14 @@
     <script type="text/javascript" src="/assets/js/moment.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
 
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
+    <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+
+
   </head>
   <body id="mateme">
     <div id="container">
@@ -26,9 +31,9 @@
   
         </style>
 
-<form action="" method="POST">
+<form>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="known_hiv_positive" 
   id="known_hiv_positive" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -38,7 +43,7 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="currently_taking_arvs" 
   id="currently_taking_arvs" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -48,7 +53,7 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="hiv_test_done_today" 
   id="hiv_test_done_today?" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false"
@@ -58,11 +63,11 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="hiv_test_result" 
   id="hiv_test_result" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('HIV/ART status');"
+  tt_onLoad="showCategory2('HIV/ART status');changeNextButton();"
   condition="__$('hiv_test_done_today?').value.match(/YES/i)" 
   helpText="HIV Test result"><option value=''></option>
   <option value=""></option>
@@ -70,10 +75,11 @@
   <option value="Negative">Negative</option>
   <option value="Indeterminate">Indeterminate</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="hiv_test_not_done_reason" 
   id="hiv_test_not_done_reason" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
+  tt_onLoad="showCategory2('HIV/ART status');changeNextButton();"
   condition="__$('hiv_test_done_today?').value.match(/NO/i)" 
   helpText="Reason HIV Test not done"><option value=''></option>
   <option value=""></option>
@@ -94,27 +100,141 @@
   var patientID = sessionStorage.patientID;
   var patientID = sessionStorage.getItem("patientID");
   var programID = sessionStorage.getItem("programID");
+  var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
   var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
 
-  // jQuery(document).ready(function(){
+    function changeNextButton() {
+        var nextButton =  document.getElementById('nextButton');
+        nextButton.setAttribute("onmousedown","postHivStatus();")
+    }
+    
 
-  //   var checkExist = setInterval(function() {
-  //     if (jQuery('#cancelButton').length) {
-  //       jQuery('#cancelButton').click(function () {
-  //         yesButton = jQuery("#messageBar button")[0];
-  //         yesButton.onmousedown = function(){
-  //           hideMessage();
-  //           if (patientID.length > 0){
-  //             window.top.location.href = "/patients/show/" + patientID;
-  //           } else {
-  //             window.top.location.href = "/";
-  //           }
-            
-  //         }
-  //       });
-  //       clearInterval(checkExist);
-  //     }
-  //   }, 100); // check every 100ms
-  // });
+    function postHivStatus() {
+        var currentTime = moment().format(' HH:mm:ss');
+        var encounter_datetime = moment(sessionStorage.sessionDate).format('YYYY-MM-DD');
+        encounter_datetime += currentTime;
+
+        var encounter = {
+            encounter_type_name: 'UPDATE HIV STATUS',
+            encounter_type_id:  39,
+            patient_id: sessionStorage.patientID,
+            encounter_datetime: encounter_datetime
+        };
+
+        submitParameters(encounter, "/encounters", "postHivStatusObs");
+    }
+
+    function postHivStatusObs(encounter) {
+
+        var hivStatusUpdate = document.getElementById('known_hiv_positive').value;
+        var artStatus = document.getElementById('currently_taking_arvs').value;
+        var hivTestDone = document.getElementById('hiv_test_done_today?').value;
+        var currentHivStatus = document.getElementById('hiv_test_result').value;
+        var hivNotDone = document.getElementById('hiv_test_not_done_reason').value;
+
+        var conceptAnswers = [
+            //Yes No answers
+            {
+              "yes": 1065,
+              "no": 1066
+            },
+            //Yes No answers
+            {
+              "yes": 1065,
+              "no": 1066
+            },
+            //Yes No answers
+            {
+              "yes": 1065,
+              "no": 1066
+            },
+            //Status update
+            {
+                "positive": 703,
+                "negative": 664,
+                "indeterminate": 1138
+            },
+            // Reason HIV Test not done
+            {
+                "refused": 9601,
+                "previousPositive": 9602,
+                "noReagentsAvailable": 9603
+            }
+        ];
+
+        var hivStatusUpdateAnswer;
+        var artStatusAnswer;
+        var hivTestDoneAnswer;
+        var hivStatusAnswer;
+        var hivNotDoneAnswer;
+        switch (hivStatusUpdate.toUpperCase()) {
+            case 'YES':
+                hivStatusUpdateAnswer = conceptAnswers[0].yes;
+                break;
+            case 'NO':
+                hivStatusUpdateAnswer = conceptAnswers[0].no;
+                break;
+            default:
+                break;
+        }
+        switch (artStatus.toUpperCase()) {
+            case 'YES':
+                artStatusAnswer = conceptAnswers[1].yes;
+                break;
+            case 'NO':
+                artStatusAnswer = conceptAnswers[1].no;
+                break;
+            default:
+                break;
+        }
+        switch (hivTestDone.toUpperCase()) {
+            case 'YES':
+                hivTestDoneAnswer = conceptAnswers[2].yes;
+                break;
+            case 'NO':
+                hivTestDoneAnswer = conceptAnswers[2].no;
+                break;
+            default:
+                break;
+        }
+        switch (currentHivStatus.toUpperCase()) {
+            case 'POSITIVE':
+                hivStatusAnswer = conceptAnswers[3].positive;
+                break;
+            case 'NEGATIVE':
+                hivStatusAnswer = conceptAnswers[3].negative;
+                break;
+            case 'INDETERMINATE':
+                hivStatusAnswer = conceptAnswers[3].indeterminate;
+                break;
+        }    
+        switch (hivNotDone.toUpperCase()) {
+            case 'REFUSED':
+                hivNotDoneAnswer = conceptAnswers[4].refused;
+                break;
+            case 'PREVIOUS POSITIVE':
+                hivNotDoneAnswer = conceptAnswers[4].previousPositive;
+                break;
+            case 'NO REAGENTS AVAILABLE':
+                hivNotDoneAnswer = conceptAnswers[4].noReagentsAvailable;
+        }
+
+            var obs = {
+            encounter_id: encounter["encounter_id"],
+            observations: [
+                { concept_id: 9566, value_coded: hivStatusUpdateAnswer},
+                { concept_id: 9567, value_coded: artStatusAnswer},
+                { concept_id: 9568, value_coded: hivTestDoneAnswer},
+                { concept_id: 9228, value_coded: hivStatusAnswer },
+                { concept_id: 9569, value_coded: hivNotDoneAnswer }
+            ]
+        };
+        submitParameters(obs, "/observations", "nextPage")
+        return;
+    }
+
+  function nextPage(){
+          window.location.href =  "/views/patient_dashboard.html?patient_id=" + patientID;
+    }
 
 </script>
