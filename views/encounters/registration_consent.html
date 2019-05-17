@@ -42,7 +42,7 @@
    id="consent" 
    tt_pageStyleClass="NoKeyboard" 
    allowFreeText="false"
-   tt_onLoad="showCategory2('Registration');" 
+   tt_onLoad="showCategory2('Registration');changeSubmitFunction();" 
    helpText="Has the client given consent?"><option value=''></option>
      <option value=""></option>
     <option value="Yes">Yes</option>
@@ -73,12 +73,3 @@
     </div>
   </body>
 </html>
-
-<!-- <script type="text/javascript">
-
-  var patientID = sessionStorage.patientID;
-  var patientID = sessionStorage.getItem("patientID");
-  var programID = sessionStorage.getItem("programID");
-  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
-
-</script> -->

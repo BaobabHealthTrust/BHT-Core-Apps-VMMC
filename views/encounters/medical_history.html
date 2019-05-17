@@ -4,14 +4,6 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-    <script language="javascript" defer="true">
-      tstUsername = "";
-      var currentTime = moment().format(' HH:mm:ss');
-      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
-
-
-    </script>
-
     <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
         defer="true"></script>
     <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
@@ -21,8 +13,15 @@
     <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
     <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/medical_history.js"></script>
 
   <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+
+    <script language="javascript" defer="true">
+
+      tstUsername = "";
+
+    </script>
 
 
   </head>
@@ -33,49 +32,19 @@
 
         </style>
 
-<script type="text/javascript">
+<form>
 
-  function displayMessage(options){
-
-    setTimeout(function(){
-
-        if (options == 'diabetes' && __$('diabetes').value == 'Yes')
-        {
-          showMessage('Note: Client has Diabetes and may not be suitable for circumcision',null,10000000000);
-        }
-        else if (options == 'bleeding' && __$('bleeding').value == 'Yes')
-        {
-          showMessage('Note: Client has Bleeding disorder and may not be suitable for circumcision',null,10000000000);
-        }
-        else if (options == 'ulcers' && __$('ulcers').value == 'Yes')
-        {
-          showMessage('Note: Client has Genital ulcers and may not be suitable for circumcision',null,10000000000);
-        }
-        else if (options == 'urination' && __$('urination').value == 'Yes')
-        {
-          showMessage('Note: Client has Painful urination and may not be suitable for circumcision',null,10000000000);
-        }
-
-       
-    },100);  
-}
-
-</script>
-
-<form action="" method="POST">
-
-  <select name="observations[][value_coded_or_text]" 
+  <select name="medical_history" 
   id="medical_history" 
   tt_pageStyleClass="NoKeyboard" 
-  allowFreeText="false" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  allowFreeText="false"
+  tt_onLoad="showCategory2('Medical history');changeSubmitFunction();" 
   helpText="Any medical history?"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
   
-  <select name="observations[][value_coded_or_text]" 
+  <select name="diabetes" 
   id="diabetes" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -88,8 +57,8 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
- <select name="observations[][value_coded_or_text]" 
- id="observations__value_coded_or_text" 
+ <select name="diabetes_type" 
+ id="diabetes_type" 
  tt_pageStyleClass="NoKeyboard" 
  allowFreeText="false" 
  helpText="Type of diabetes" 
@@ -98,9 +67,9 @@
   <option value=""></option>
   <option value="Type 1 diabetes">Type 1 diabetes</option>
   <option value="Type 2 diabetes">Type 2 diabetes</option>
-  <option value="Unknown">Unknown</option></select>
+  <option value="Unknown type">Unknown type</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="bleeding" 
   id="bleeding" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -113,8 +82,8 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <input type="text" name="observations[][value_text]" 
-  id="observations__value_text" 
+  <input type="text" name="bleeding_specify" 
+  id="bleeding_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify the bleeding disorder" 
@@ -125,7 +94,7 @@
   id="meds" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  helpText="Any meds? <span class='helper'> Medical History</span>" 
+  helpText="Any meds?" 
   tt_requireNextClick="false" 
   tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
@@ -134,8 +103,8 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="meds_specify" 
+  id="meds_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify any meds" 
@@ -143,7 +112,7 @@
   tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
 
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="allergies" 
   id="allergies" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -156,15 +125,15 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="allergies_specify" 
+  id="allergies_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify allergies" 
   condition="__$('allergies').value.match(/YES/i)" 
   tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history'); " />
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="ulcers" 
   id="ulcers" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -178,15 +147,15 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="ulcers_specify" 
+  id="ulcers_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify genital ulcers" 
   condition="__$('ulcers').value.match(/YES/i)" 
   tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="itching" 
   id="itching" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -199,15 +168,15 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="itching_specify" 
+  id="itching_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify genital itching" 
   condition="__$('itching').value.match(/YES/i)" 
   tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="urination" 
   id="urination" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -221,34 +190,33 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="urination_specify" 
+  id="urination_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify painful urination" 
   condition="__$('urination').value.match(/YES/i)" 
   tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="other_medical_history" 
   id="other_medical_history" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  helpText="Any other Medical condition?" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
+  helpText="Any other Medical condition?"
+  tt_onLoad="showCategory2('Medical history');changeSubmitFunction();$('nextButton').style.display = 'block'" 
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="other_medical_specify" 
+  id="other_medical_specify" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify other medical condition" 
   condition="__$('other_medical_history').value.match(/YES/i)" 
-  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');" />
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Medical history');changeSubmitFunction();" />
 
 </form>
         <div id="footer">
@@ -257,34 +225,4 @@
     </div>
   </body>
 </html>
-
-<script type="text/javascript">
-
-  var patientID = sessionStorage.patientID;
-  var patientID = sessionStorage.getItem("patientID");
-  var programID = sessionStorage.getItem("programID");
-  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
-
-  // jQuery(document).ready(function(){
-
-  //   var checkExist = setInterval(function() {
-  //     if (jQuery('#cancelButton').length) {
-  //       jQuery('#cancelButton').click(function () {
-  //         yesButton = jQuery("#messageBar button")[0];
-  //         yesButton.onmousedown = function(){
-  //           hideMessage();
-  //           if (patientID.length > 0){
-  //             window.top.location.href = "/patients/show/" + patientID;
-  //           } else {
-  //             window.top.location.href = "/";
-  //           }
-            
-  //         }
-  //       });
-  //       clearInterval(checkExist);
-  //     }
-  //   }, 100); // check every 100ms
-  // });
-
-</script>
 
