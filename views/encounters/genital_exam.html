@@ -4,19 +4,22 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
-    <script language="javascript" defer="true">
-
-      tstUsername = "";
-      var currentTime = moment().format(' HH:mm:ss');
-      var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
-
-    </script>
-
     <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
         defer="true"></script>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
     <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/moment.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/genital_exam.js"></script>
+
+    <script language="javascript" defer="true">
+
+      tstUsername = "";
+
+    </script>
 
   </head>
   <body id="mateme">
@@ -26,45 +29,21 @@
 
         </style>
 
-<script type="text/javascript">
+<form>
 
-  function displayMessage(options){
-
-    setTimeout(function(){
-
-        if (options == 'ulcer_id' && __$('ulcer_id').value == 'Yes')
-        {
-          showMessage('Note: Client has Ulcer and may not be suitable for circumcision',null,10000000000);
-        }
-        else if (options == 'urethral_id' && __$('urethral_id').value == 'Yes')
-        {
-          showMessage('Note: Client has Urethral Discharge and may not be suitable for circumcision',null,10000000000);
-        }
-        else if (options == 'swelling_id' && __$('swelling_id').value == 'Yes')
-        {
-          showMessage('Note: Client has Scrotum swelling/tenderness and may not be suitable for circumcision',null,10000000000);
-        }
-       
-    },100);  
-}
-
-</script>
-
-<form action="" method="POST">
-
-  <select name="observations[][value_coded_or_text]" 
+  <select name="circumcision_idd" 
   id="circumcision_idd" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('Genital exam');" 
+  tt_onLoad="showCategory2('Genital exam');changeSubmitFunction();" 
   helpText="Circumcision Status"><option value=''></option>
   <option value=""></option>
   <option value="Full">Full</option>
   <option value="Part">Part</option>
   <option value="None">None</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
-  id="observations__value_coded_or_text" 
+  <select name="phimosis_id" 
+  id="phimosis_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Phimosis" 
@@ -75,7 +54,7 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="ulcer_id" 
   id="ulcer_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -88,7 +67,7 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="urethral_id" 
   id="urethral_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -101,7 +80,7 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="swelling_id" 
   id="swelling_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -114,8 +93,8 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
-  id="observations__value_coded_or_text" 
+  <select name="inguinal_nodes_id" 
+  id="inguinal_nodes_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Inguinal nodes enlarged/tender" 
@@ -126,25 +105,24 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
-  id="any-abnormality" 
+  <select name="any_abnormality" 
+  id="any_abnormality" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Other abnormality" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Genital exam');" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Genital exam');changeSubmitFunction();" 
   condition="__$('circumcision_idd').value != 'Full'"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <input type="text" name="observations[][value_text]" 
-  id="other-abnormalities" 
+  <input type="text" name="other_abnormalities" 
+  id="other_abnormalities" 
   field_type="alpha" 
   allowFreeText="true" 
   helpText="Specify other abnormalities" 
-  condition="__$('any-abnormality').value.match(/YES/i)" 
-  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Genital exam');" />
+  condition="__$('any_abnormality').value.match(/YES/i)" 
+  tt_onLoad="$('nextButton').style.display = 'inline';showCategory2('Genital exam');changeSubmitFunction();" />
 </form>
 
         <div id="footer">
@@ -153,12 +131,3 @@
     </div>
   </body>
 </html>
-
-<script type="text/javascript">
-
-  var patientID = sessionStorage.patientID;
-  var patientID = sessionStorage.getItem("patientID");
-  var programID = sessionStorage.getItem("programID");
-  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
-
-</script>
