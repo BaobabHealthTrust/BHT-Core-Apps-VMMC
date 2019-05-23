@@ -6,16 +6,21 @@
 
     <script language="javascript" defer="true">
       tstUsername = "";
-      tstUserKeyboardPref = "qwerty";
-
+      tstUserKeyboardPref = "";
       tstCurrentDate = "";
-
 
     </script>
 
-    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js" defer="true"></script>
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/touchScreenToolkit.js"
+        defer="true"></script>
+    <script type="text/javascript" src="/assets/js/post_parameters.js"></script>
+    <script type="text/javascript" src="/assets/js/generic_ajaxrequest.js"></script>
+    <script type="text/javascript" src="/assets/js/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="/assets/js/does_connection_exist.js"></script>
     <script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/moment.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
+    <script type="text/javascript" src="/apps/VMMC/assets/js/postop_review.js"></script>
 
   </head>
   <body id="mateme">
@@ -26,10 +31,10 @@
 
 </style>
 
-<form action="" method="POST">
+<form action="">
 
   <input type="text" 
-  name="observations[][value_text]" 
+  name="post_review_time" 
   id="post_review_time" 
   field_type="number" 
   allowFreeText="true" 
@@ -41,7 +46,7 @@
   helpText="Review Time" />
 
   <input type="text" 
-  name="observations[][value_text]" 
+  name="pulse" 
   id="pulse" 
   field_type="number" 
   allowFreeText="true"
@@ -55,7 +60,7 @@
   tt_pageStyleClass="Numeric NumbersWithUnknownAndDecimal" />
 
   <input type="text" 
-  name="observations[][value_text]" 
+  name="systolic_blood_pressure" 
   id="systolic_blood_pressure" 
   field_type="number" 
   allowFreeText="true" 
@@ -67,7 +72,7 @@
   max="150" />
 
   <input type="text" 
-  name="observations[][value_text]" 
+  name="diastolic_blood_pressure" 
   id="diastolic_blood_pressure" 
   field_type="number" 
   allowFreeText="true"
@@ -78,7 +83,7 @@
   min="50" 
   max="100" />
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="type_of_pain" 
   id="type_of_pain" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -90,7 +95,7 @@
   <option value="Moderate">Moderate</option>
   <option value="Severe">Severe</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="bandage" 
   id="bandage" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false"
@@ -101,11 +106,10 @@
   <option value="Spot">Spot</option>
   <option value="Soak">Soak</option></select>
 
-  <select name="observations[][value_coded_or_text]" 
+  <select name="other_ae" 
   id="other_ae" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('Post-op review');"
   tt_onLoad="showCategory2('Post-op review');"
   helpText="Other Adverse Event?"><option value=''></option>
   <option value=""></option>
@@ -115,16 +119,16 @@
   <option value="Severe">Severe</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="observations__value_text" 
+  name="specify_other_ae" 
+  id="specify_other_ae" 
   field_type="alpha" 
   allowFreeText="true" 
   tt_onLoad="showCategory2('Post-op review');"
   helpText="Specify other Adverse Event" 
   condition="__$('other_ae').value != 'None'" />
 
-  <select name="observations[][value_coded_or_text]" 
-  id="meds-given?" 
+  <select name="meds_given?" 
+  id="meds_given?" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   tt_onLoad="showCategory2('Post-op review');"
@@ -134,98 +138,41 @@
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
+  name="medication" 
   id="medication" 
   field_type="alpha" 
   allowFreeText="true" 
   tt_onLoad="showCategory2('Post-op review');"
-  condition="__$('meds-given?').value.match(/YES/i)" 
+  condition="__$('meds_given?').value.match(/YES/i)" 
   helpText="Specify medication" />
 
 
-  <select name="observations[][value_coded_or_text]" 
-  id="ready-for-discharge" 
+  <select name="ready_for_discharge" 
+  id="ready_for_discharge" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('Post-op review');"
+  tt_onLoad="showCategory2('Post-op review');changeNextButton();"
   helpText="Ready for discharge"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
   <input type="text" 
-  name="observations[][value_text]" 
-  id="appointment-date" 
+  name="appointment_date" 
+  id="appointment_date" 
   field_type="date" 
   allowFreeText="true" 
-  tt_onLoad="showCategory2('Post-op review');__$('Unknown').style.display = 'none';"
+  tt_onLoad="showCategory2('Post-op review');__$('Unknown').style.display = 'none';changeNextButton();"
   absoluteMin="2019-05-11" 
   maxDate="2019-08-10" 
   helptext="Appointment date" 
-  condition="__$('ready-for-discharge').value.match(/YES/i)" />
+  condition="__$('ready_for_discharge').value.match(/YES/i)" />
 
 </form>
 
-
-<script type="text/javascript">
-  var time = "";
-  var time_with_colon;
-
-  function changeDecimalToColon(){
-    decimal = jQuery("#decimal")[0];
-    decimal.innerHTML = '<span>:</span>';
-    decimal.setAttribute("onmousedown", "press(':')")
-  }
-
-  function displayMessage(options){
-
-    setTimeout(function(){
-
-        if (options == 'systolic_blood_pressure' && __$('systolic_blood_pressure').value >= 140 && __$('systolic_blood_pressure').value <= 150)
-        {
-          showMessage('Note: Client Systolic Blood Pressure is high',null,10000000000);
-        }
-        else if (options == 'diastolic_blood_pressure' && __$('diastolic_blood_pressure').value >= 50 && __$('diastolic_blood_pressure').value <= 90 )
-        {
-          showMessage('Note: Client Diastolic Blood Pressure is high',null,10000000000);
-        }
-       
-    },100);  
-}
-
-  function updateTimeLeft(){
-    time = $("touchscreenInput"+tstCurrentPage).value.replace(":",'');
-    time_with_colon = $("touchscreenInput"+tstCurrentPage).value
-  }
-
-  function postOp(){
-    var time = '12:45';
-    time_with_colon = time.replace(":",'');
-
-    $("nextButton").removeAttribute("onmousedown");
-    $("nextButton").onmousedown = function(){
-      current_input_value = parseInt($("touchscreenInput"+tstCurrentPage).value.replace(":",''));
-      if (current_input_value > parseInt(time_with_colon)){
-          gotoNextPage();
-      } else {
-          showMessage("Time greater than time left on the table (<b>" + time + "</b>)")
-      }
-    }
-  }
-
-</script>
         <div id="footer">
         </div>
       </div>
     </div>
   </body>
 </html>
-
-<script type="text/javascript">
-
-  var patientID = sessionStorage.patientID;
-  var patientID = sessionStorage.getItem("patientID");
-  var programID = sessionStorage.getItem("programID");
-  var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
-
-</script>
