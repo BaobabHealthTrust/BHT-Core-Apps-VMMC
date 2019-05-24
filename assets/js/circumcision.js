@@ -201,7 +201,7 @@ function postCircumcisioObs(encounter) {
             },
             {
                 concept_id: 9584,
-                value_datetime: anaesthesiaTime
+                value_text: anaesthesiaTime
             },
             {
                 concept_id: 9585,
@@ -237,7 +237,7 @@ function postCircumcisioObs(encounter) {
             },
             {
                 concept_id: 9588,
-                value_datetime: incisionTime
+                value_text: incisionTime
             },
             {
                 concept_id: 9589,
@@ -253,7 +253,7 @@ function postCircumcisioObs(encounter) {
             },
             {
                 concept_id: 9591,
-                value_datetime: timeLeftTable
+                value_text: timeLeftTable
             },
             {
                 concept_id: 6346,

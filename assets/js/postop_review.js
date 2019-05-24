@@ -215,7 +215,7 @@ function postPostOpReviewObs(encounter) {
         encounter_id: encounter["encounter_id"],
         observations: [{
                 concept_id: 9592,
-                value_datetime: postReviewTime
+                value_text: postReviewTime
             },
             {
                 concept_id: 5087,
