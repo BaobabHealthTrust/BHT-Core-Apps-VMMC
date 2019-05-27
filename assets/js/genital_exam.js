@@ -83,7 +83,7 @@ function postGenitalExamObs(encounter) {
     var swellingStatus = document.getElementById('swelling_id').value;
     var inguinalNodesStatus = document.getElementById('inguinal_nodes_id').value;
     var anyAbnormalityStatus = document.getElementById('any_abnormality').value;
-    var otherAbnormalitiesSpecify = document.getElementById('other_abnormalities').value;
+    var otherAbnormalitiesSpecify = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
         //circumcision id answers
         {

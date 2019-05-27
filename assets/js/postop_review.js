@@ -112,7 +112,7 @@ function postPostOpReviewObs(encounter) {
     var medsGiven = document.getElementById('meds_given?').value;
     var medicationSpecify = document.getElementById('medication').value;
     var readyForDischarge = document.getElementById('ready_for_discharge').value;
-    var appointmentDate = document.getElementById('appointment_date').value;
+    var appointmentDate = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
         //type of pain answers
         {

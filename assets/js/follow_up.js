@@ -472,7 +472,7 @@ function postFollowUpObs(encounter) {
     var findingsSummary = document.getElementById('findings_summary').value;
     var managementFindings = document.getElementById('management_findings').value;
     var counsellingStatus = document.getElementById('counselling').value;
-    var familyPlanning = document.getElementById('family_planning').value;
+    var familyPlanning = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
     	//advance follow up answers
     	{

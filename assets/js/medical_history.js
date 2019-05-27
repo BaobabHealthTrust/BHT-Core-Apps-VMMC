@@ -110,7 +110,7 @@ function displayMessage(options){
         var urinationSpecify = document.getElementById('urination_specify').value;
 
         var otherMedicalHistoryStatus = document.getElementById('other_medical_history').value;
-        var specifyOtherCondition = document.getElementById('other_medical_specify').value;
+        var specifyOtherCondition = __$("touchscreenInput" + tstCurrentPage).value;
 
         var conceptAnswers = [
             //medical history Yes/No answers
