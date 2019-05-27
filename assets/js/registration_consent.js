@@ -1,5 +1,9 @@
 var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
 
+var currentTime = moment().format(' HH:mm:ss');
+
+var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
+
 var apiProtocol = sessionStorage.apiProtocol;
 
 var apiURL = sessionStorage.apiURL;
@@ -33,13 +37,38 @@ var knowledge_source = {
   "Other": 6408
 }
 
-function changeSubmitFunction(){
-  
-  var nextButton = document.getElementById('nextButton');
-  
-  nextButton.setAttribute('onmousedown', 'getKnowledgeSourceObs()');
+    function changeSubmitFunction(){
+      
+      var answer = $("touchscreenInput" +tstCurrentPage).value;
+      var nextButton = document.getElementById('nextButton');
+      nextButton.setAttribute('onmousedown', 'goNext()');   
 
-}
+    }
+    
+    function goNext(){
+
+      var field = $("touchscreenInput" + tstCurrentPage);
+
+      if (field.name == "consent"){
+
+        if (field.value == "Yes"){
+          gotoNextPage();
+        } else if (field.value == ""){
+          showMessage("Please enter a value to continue.")
+        } else{
+          submitConsentEncounter();
+        }
+
+      }else if (field.name == "knowledge_source"){
+        if (field.value == ""){
+          showMessage("Please enter value to continue.")
+          return
+        }else{
+        getKnowledgeSourceObs();
+        }
+      }
+
+    }
 
 function submitConsentEncounter(){
   
@@ -117,9 +146,9 @@ function getKnowledgeSourceObs(){
 
       if (id && !__$('img' + (i-1)).src.match("unticked")){
         
-        hash["concept_id"] = parseInt(knowledge_source[id])
+        hash["concept_id"] = 9598
         
-        hash["value_coded"] = 1065
+        hash["value_coded"] = parseInt(knowledge_source[id])
         
         consent_obs.push(hash);
       

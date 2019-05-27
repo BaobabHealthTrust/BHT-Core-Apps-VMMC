@@ -34,13 +34,7 @@ function displayMessage(options){
   	  	var answer = $("touchscreenInput" +tstCurrentPage).value;
 		var nextButton = document.getElementById('nextButton');
 		nextButton.setAttribute('onmousedown', 'goNext()');
-  // 	  if(answer === "Yes") {
-		// nextButton.setAttribute('onmousedown', 'gotoNextPage()');
-  // 	  }else if (answer === "No") {
-	 // 	nextButton.setAttribute('onmousedown', 'postMedicalHistory()');
-  // 	  }
 	  
-
 	}
     
     function goNext(){
@@ -51,7 +45,9 @@ function displayMessage(options){
 
     		if (field.value == "Yes"){
     			gotoNextPage();
-    		}else{
+    		}else if (field.value == ""){
+                showMessage("Please enter a value to continue.")
+            }else{
     			postMedicalHistory();
     		}
 
