@@ -1,4 +1,3 @@
-
 var currentTime = moment().format(' HH:mm:ss');
 var tstCurrentDate = moment(tstCurrentDate).format("YYYY-MM-DD");
 var patientID = sessionStorage.patientID;
@@ -10,6 +9,9 @@ var anaesthesia_time = "";
 var anaesthesia_time_with_colon;
 var incision_time = "";
 var incision_time_with_colon;
+var currentYear = moment(tstCurrentDate).format("YYYY");
+var currentMonth = moment(tstCurrentDate).format("MM");
+var todayDate = new Date(tstCurrentDate);
 
 function updateAnaesTime() {
     anaesthesia_time = $("touchscreenInput" + tstCurrentPage).value.replace(":", '');
@@ -82,6 +84,205 @@ function updateAssistantCircumciserDetails() {
         gotoNextPage();
     }
 }
+
+function setAbsoluteMaxYear() {
+
+    var y = document.getElementById('touchscreenInput' + tstCurrentPage);
+
+    var minYear = moment(sessionStorage.sessionDate).format("DD-MM-YYYY");
+    var maxYear = moment(sessionStorage.sessionDate).add(3, "months").format("DD-MM-YYYY");
+
+    y.setAttribute('max', maxYear);
+    y.setAttribute('min', minYear);
+}
+
+function submitButton() {
+
+    var nextButton = document.getElementById('nextButton');
+
+    nextButton.onmousedown = function() {
+
+        var ftype = document.getElementById('touchscreenInput' + tstCurrentPage).getAttribute('field_type');
+
+        if (ftype !== null && ftype.toLowerCase() === 'date') {
+
+            checkMaxAndValue();
+
+        } else {
+
+            gotoNextPage();
+
+        }
+
+    }
+
+}
+
+function checkMaxAndValue() {
+
+    var yearInput = document.getElementById('touchscreenInput' + tstCurrentPage);
+
+    var yearInputValue = yearInput.value;
+
+    var maxValue = yearInput.max
+
+    var minYear = moment(sessionStorage.sessionDate).format("DD-MM-YYYY");
+
+    var maxYear = moment(sessionStorage.sessionDate).add(3, "months").format("DD-MM-YYYY");
+
+    var inputDate = moment(yearInputValue.toString().split("-").reverse().join("-")).format("DD-MM-YYYY");;
+
+    var maxDate = moment(maxValue.split("-").reverse().join("-")).format("DD-MM-YYYY");
+
+    if (inputDate < minYear && inputDate !== 'Invalid date') {
+
+        showMessage('Value less than minimum ' + minYear);
+
+        return;
+
+    } else if (inputDate > maxYear && inputDate !== 'Invalid date') {
+
+        showMessage('Value less than minimum ' + maxYear);
+
+    } else {
+
+        gotoNextPage();
+    }
+
+}
+
+function initializeDate() {
+
+    currentDate = new Date(sessionStorage.sessionDate)
+
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    year = currentDate.getFullYear()
+
+    month = currentDate.getMonth();
+
+    day = currentDate.getDate();
+
+    birthDate = new Date(sessionStorage.patientDOB);
+
+    birth_year = birthDate.getFullYear();
+
+    birth_month = birthDate.getMonth();
+
+    birth_day = birthDate.getDate();
+
+
+
+    setTimeout(__$("today").onmousedown, 0);
+
+    setTimeout(function() {
+
+        __$("touchscreenInput" + tstCurrentPage).value = "";
+
+    }, 3);
+
+    var year_plus = __$("dateselector_nextYear").onmousedown
+
+    var year_minus = __$("dateselector_preYear").onmousedown
+
+    __$("dateselector_nextYear").onmousedown = function() {
+
+        if (parseInt(year) <= parseInt(__$("dateselector_year").value)) {
+
+
+
+        } else {
+
+            setTimeout(year_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preYear").onmousedown = function() {
+
+        if (parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) {
+
+
+
+        } else {
+
+            setTimeout(year_minus, 0);
+
+        }
+
+    }
+
+    var month_plus = __$("dateselector_nextMonth").onmousedown
+
+    var month_minus = __$("dateselector_preMonth").onmousedown
+
+    __$("dateselector_nextMonth").onmousedown = function() {
+
+        if ((parseInt(year) <= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(month) <= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(month_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preMonth").onmousedown = function() {
+
+        if ((parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(birth_month) >= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(month_minus, 0);
+
+        }
+
+    }
+
+    var day_plus = __$("dateselector_nextDay").onmousedown
+
+    var day_minus = __$("dateselector_preDay").onmousedown
+
+    __$("dateselector_nextDay").onmousedown = function() {
+
+        if ((parseInt(day) <= parseInt(__$("dateselector_day").value)) &&
+
+            (parseInt(year) <= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(month + 1) <= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(day_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preDay").onmousedown = function() {
+
+        if ((parseInt(birth_day) >= parseInt(__$("dateselector_day").value)) &&
+
+            (parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(birth_month + 1) >= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(day_minus, 0);
+
+        }
+
+    }
+
+}
+
 
 function changeNextButton() {
     var nextButton = document.getElementById('nextButton');

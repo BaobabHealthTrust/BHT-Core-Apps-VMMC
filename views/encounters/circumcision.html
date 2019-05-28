@@ -38,10 +38,11 @@
   name="circumcision_date" 
   id="circumcision_date" 
   field_type="date" 
-  allowFreeText="true" 
-  maxDate="2019-08-09" 
-  absoluteMin="2019-05-09" 
-  tt_onLoad="showCategory2('Circumcision');__$('Unknown').style.display = 'none';"
+  allowFreeText="true"
+  maxDate=""
+  absoluteMin=""
+  tt_pageStyleClass="Date DatesOnly"
+  tt_onLoad="showCategory2('Circumcision');__$('Unknown').style.display = 'none';initializeDate();setAbsoluteMaxYear();submitButton();"
   helptext="Circumcision Date" />
 
   <input type="text" 
