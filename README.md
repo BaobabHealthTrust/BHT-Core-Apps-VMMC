@@ -1,4 +1,4 @@
-# ANTENATAL CLINIC EMR MODULE
+# VOLUNTARY MEDICAL MALE CIRCUMCISION (VMMC) MODULE
 
 ## Build
 ___
@@ -26,9 +26,9 @@ You can use any, but not limited to the following:
 
 ### Set Up
 
-1. Clone the repository from [github](https://github.com/BaobabHealthTrust/BHT-Core-Apps-ANC.git) into the BHT-Core's apps/ folder. 
-2. Rename the module from BHT-Cores-Apps-ANC to ANC.
+1. Clone the repository from [github](https://github.com/BaobabHealthTrust/BHT-Core-Apps-VMMC.git) into the BHT-Core's apps/ folder. 
+2. Rename the module from BHT-Cores-Apps-VMMC to VMMC.
 3. Rename the application.json.example to application.json.
-4. Follow the instructions on [BHT-Core](https://github.com/BaobabHealthTrust/BHT-Core#Module---Application-Setup) on configuring ANC module on the application. 
+4. Follow the instructions on [BHT-Core](https://github.com/BaobabHealthTrust/BHT-Core#Module---Application-Setup) on configuring VMMC module on the application. 
 5. The module is now ready to be run, it will be available by going to the home page after logging in or after clicking the applications button in the bottom right hand of the page.
 
