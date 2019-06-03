@@ -43,7 +43,7 @@
     "appointment": {
       "available": true,
       "activitiesIcon": "/assets/images/appointment.png",
-      "url": "/apps/VMMC/views/encounters/appointment.html"
+      "url": "/views/patient/appointment.html"
     },
     "follow up": {
       "available": true,

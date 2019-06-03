@@ -68,18 +68,19 @@ function goNext(){
         if (field.name == "ready_for_discharge"){
 
             if (field.value == "Yes"){
-                gotoNextPage();
+                window.location.href = "/views/patient/appointment.html?patient_id=" + patientID;
+                // gotoNextPage();
             }else{
                 postPostOpReview();
             }
 
-        }else if (field.name == "appointment_date"){
-            if (field.value == ""){
-                showMessage("Please enter value to continue.")
-                return
-            }
-            postPostOpReview();
-        }
+       } // else if (field.name == "appointment_date"){
+        //     if (field.value == ""){
+        //         showMessage("Please enter value to continue.")
+        //         return
+        //     }
+        //     postPostOpReview();
+        // }
 
 }
 
