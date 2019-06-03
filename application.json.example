@@ -40,6 +40,11 @@
       "activitiesIcon": "/assets/images/consultation.png",
       "url": "/apps/VMMC/views/encounters/postop_review.html"
     },
+    "appointment": {
+      "available": true,
+      "activitiesIcon": "/assets/images/appointment.png",
+      "url": "/apps/VMMC/views/encounters/appointment.html"
+    },
     "follow up": {
       "available": true,
       "activitiesIcon": "/assets/images/surgical_history.png",
