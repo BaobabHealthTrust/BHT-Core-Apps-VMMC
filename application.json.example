@@ -61,7 +61,8 @@
       ["GENITAL EXAMINATION", "genital examination"],
       ["SUMMARY ASSESSMENT", "summary assessment"],
       ["CIRCUMCISION", "circumcision"],
-      ["POST-OP REVIEW", "post-op review"],      
+      ["POST-OP REVIEW", "post-op review"], 
+      ["APPOINTMENT", "appointment"],      
       ["FOLLOW UP", "follow up"]
     ]
   },
