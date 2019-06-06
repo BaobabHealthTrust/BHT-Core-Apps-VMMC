@@ -125,9 +125,9 @@ function postConsentObs(encounter) {
 
 }
 
-function nextPage(obs) {
+function nextPage(){
 
-    window.location.href = "/views/patient_dashboard.html?patient_id=" + patientID;
+  nextEncounter(patientID, programID);
 
 }
 

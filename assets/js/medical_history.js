@@ -304,6 +304,8 @@ function displayMessage(options){
         return;
     }
 
-  function nextPage(){
-          window.location.href =  "/views/patient_dashboard.html?patient_id=" + patientID;
-    }
+function nextPage(){
+
+  nextEncounter(patientID, programID);
+
+}

@@ -38,7 +38,7 @@
   id="post_review_time" 
   field_type="number" 
   allowFreeText="true" 
-  tt_onLoad="changeDecimalToColon(); postOp();showCategory2('Post-op review');" 
+  tt_onLoad="changeDecimalToColon(); getTime(); postOp();showCategory2('Post-op review');" 
   tt_onUnLoad="updateTimeLeft();" 
   validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
   validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 

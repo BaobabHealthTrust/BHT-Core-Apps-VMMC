@@ -32,13 +32,12 @@ function updateTimeLeft() {
 }
 
 function postOp() {
-    var time = '12:45';
-    time_with_colon = time.replace(":", '');
 
     $("nextButton").removeAttribute("onmousedown");
     $("nextButton").onmousedown = function() {
         current_input_value = parseInt($("touchscreenInput" + tstCurrentPage).value.replace(":", ''));
-        if (current_input_value > parseInt(time_with_colon)) {
+        console.log((time_with_colon));
+        if (current_input_value > parseInt(time.replace(":", ""))) {
             gotoNextPage();
         } else {
             showMessage("Time greater than time left on the table (<b>" + time + "</b>)")
@@ -46,43 +45,119 @@ function postOp() {
     }
 }
 
+// function getTime() {
+//     console.log("reee");
+//     var url = apiProtocol + "://" + apiURL + ":" + apiPort;
+//     url += "/api/v1/observations?person_id=" + sessionStorage.patientID + "&concept_id=9591";
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//       if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
+//         var obj = JSON.parse(this.responseText);
+//         console.log(obj);
+//     }
+//     xhttp.open("GET", url, true);
+//     xhttp.setRequestHeader(
+//       "Authorization",
+//       sessionStorage.getItem("authorization")
+//     );
+//     xhttp.setRequestHeader("Content-type", "application/json");
+//     xhttp.send();
+//   }
+// }
+
+
+function getTime() {
+    var url = apiProtocol + "://" + apiURL + ":" + apiPort;
+    url += "/api/v1/observations?person_id=" + sessionStorage.patientID + "&concept_id=9591";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
+        var obj = JSON.parse(this.responseText);
+        if (obj.length > 0) {
+          time = obj[obj.length - 1].value_text;
+          return time;
+        }
+      }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader(
+      "Authorization",
+      sessionStorage.getItem("authorization")
+    );
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  }
 // function changeNextButton() {
 //     var nextButton = document.getElementById('nextButton');
 //     nextButton.setAttribute("onmousedown", "postPostOpReview();")
 // }
 
+function getHeight(patient_id) {
+    var url = apiProtocol + "://" + apiURL + ":" + apiPort;
+    url += "/api/v1/observations?person_id=" + patient_id + "&concept_id=5090";
+    url +=
+      "&date=" +
+      moment(new Date(sessionStorage.sessionDate)).format("YYYY-MM-DD");
+    url += "&page_size=1";
 
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && (this.status == 201 || this.status == 200)) {
+        var obj = JSON.parse(this.responseText);
+        if (obj.length > 0) {
+          sessionStorage.currentHeightObsID = obj[0].obs_id;
+          var height = parseInt(obj[0].value_numeric);
+          if (height > 0) {
+            sessionStorage.currentHeight = height;
+          } else if (obj[0].value_text.length > 0) {
+            sessionStorage.currentHeight = parseInt(obj[0].value_text);
+          } else {
+            sessionStorage.currentHeight = 0;
+          }
+        }
+      }
+    };
+    xhttp.open("GET", url, true);
+    xhttp.setRequestHeader(
+      "Authorization",
+      sessionStorage.getItem("authorization")
+    );
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send();
+  }
 
 function changeNextButton(){
         
     var answer = $("touchscreenInput" +tstCurrentPage).value;
     var nextButton = document.getElementById('nextButton');
-    nextButton.setAttribute('onmousedown', 'goNext()');      
+    nextButton.setAttribute('onmousedown', 'postPostOpReview()');      
 
 }
     
-function goNext(){
+// function goNext(){
 
-    var field = $("touchscreenInput" + tstCurrentPage);
+//     var field = $("touchscreenInput" + tstCurrentPage);
 
-        if (field.name == "ready_for_discharge"){
+//         if (field.name == "ready_for_discharge"){
 
-            if (field.value == "Yes"){
-                window.location.href = "/views/patient/appointment.html?patient_id=" + patientID;
-                // gotoNextPage();
-            }else{
-                postPostOpReview();
-            }
+//             if (field.value == "Yes"){
 
-       } // else if (field.name == "appointment_date"){
-        //     if (field.value == ""){
-        //         showMessage("Please enter value to continue.")
-        //         return
-        //     }
-        //     postPostOpReview();
-        // }
+//                 postPostOpReview();
+//                 //window.location.href = "/views/patient/appointment.html?patient_id=" + patientID;
+//                 // gotoNextPage();
+//             }else{
+//                 postPostOpReview();
+//             }
 
-}
+//        } // else if (field.name == "appointment_date"){
+//         //     if (field.value == ""){
+//         //         showMessage("Please enter value to continue.")
+//         //         return
+//         //     }
+//         //     postPostOpReview();
+//         // }
+
+// }
 
 
 function postPostOpReview() {
@@ -112,8 +187,7 @@ function postPostOpReviewObs(encounter) {
     var specifyOtherAe = document.getElementById('specify_other_ae').value;
     var medsGiven = document.getElementById('meds_given?').value;
     var medicationSpecify = document.getElementById('medication').value;
-    var readyForDischarge = document.getElementById('ready_for_discharge').value;
-    var appointmentDate = __$("touchscreenInput" + tstCurrentPage).value;
+    var readyForDischarge = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
         //type of pain answers
         {
@@ -257,10 +331,6 @@ function postPostOpReviewObs(encounter) {
             {
                 concept_id: 9597,
                 value_coded: readyForDischargeAnswer
-            },
-            {
-                concept_id: 5096,
-                value_datetime: appointmentDate
             }
         ]
     };
@@ -269,5 +339,6 @@ function postPostOpReviewObs(encounter) {
 }
 
 function nextPage() {
-    window.location.href = "/views/patient_dashboard.html?patient_id=" + patientID;
+    
+    nextEncounter(patientID, programID);
 }
