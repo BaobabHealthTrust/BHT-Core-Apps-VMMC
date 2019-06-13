@@ -16,7 +16,7 @@ Git version control allows you to clone this application on your machine.
 Go to [git](https://git-scm.com) to install git on your machine.
 
 #### Web server
-ANC Module runs in BHT-Core application that is served by any webserver.
+VMMC Module runs in BHT-Core application that is served by any webserver.
 Make sure you have the any web server on your machine to be able to run the application.
 You can use any, but not limited to the following:
 - NGINX
