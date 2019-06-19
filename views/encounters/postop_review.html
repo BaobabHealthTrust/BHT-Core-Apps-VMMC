@@ -22,6 +22,221 @@
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/postop_review.js"></script>
 
+    <script type="text/javascript" src="/public/touchscreentoolkit/lib/javascripts/dashboard.js"></script>
+
+    <link rel="stylesheet" href="/assets/css/vitals-keypad.css" type="text/css">
+    <script type="text/javascript" src="/assets/js/vitals-keypad.js"></script>
+    <script type="text/javascript" src="/assets/js/bmi.js"></script>
+    <link rel="stylesheet" href="/assets/css/alertifyjs/css/alertify.css" type="text/css">
+    <script type="text/javascript" src="/assets/js/demographics.js"></script>
+
+<style>
+
+    .main-table-div {
+        display: table;
+        width: 100%;
+    }
+
+    .main-table-div-row {
+        display: table-row;
+    }
+
+    .main-table-div-cell {
+        display: table-cell;
+    }
+
+    .cell-summary {
+        width: 45%;
+        background-color: lightyellow;
+    }
+
+    .cell-left {
+        width: 155px;
+    }
+
+    .cell-right {
+        border-style: solid !important;
+        border-width: 0px 1px 0px 1px;
+        width: 340px;
+        vertical-align: top;
+    }
+
+    .table-main {
+        display: table;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-main-row {
+        display: table-row;
+        border-collapse: separate;
+    }
+
+    .table-main-cell {
+        /*  display: table-cell;
+          border-style: solid;
+          border-width: 1px;
+          text-align: center;
+
+          padding: 10px;
+          box-shadow: 5px 10px;
+
+          height: 20px;
+          width: 30px; */
+    }
+
+    .separator {
+        border-style: none;
+        padding-bottom: 300px;
+    }
+
+    .app-btn {
+        padding-bottom: 5px;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        margin-top: 5px;
+        border: 1px solid #5480a8;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 7px;
+        border: solid black 1px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -moz-box-shadow: inset 0 0 1px #000000;
+        -webkit-box-shadow: inset 0 0 1px #000000;
+        box-shadow: inset 0 0 10px #000000;
+        text-decoration: none;
+
+        width: 110px;
+        height: 80px;
+    }
+
+    .btn-icons {
+        height: 40px;
+        width: 40px;
+    }
+
+    img {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+    }
+
+    .button-diabled {
+        color: currentColor;
+        cursor: not-allowed;
+        text-decoration: none;
+        background-color: #5480a8;
+        color: white;
+        font-weight: bold;
+    }
+
+    #dy-summary-table {
+        width: 90%;
+        font-size: 1.5em;
+        border-collapse: collapse;
+        margin: 0px 0px 0px 20px;
+    }
+
+    #dy-summary-table td {
+        text-align: right;
+        padding-right: 10px;
+        border-style: solid;
+        border-width: 0px 0px 1px 0px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 5; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 12% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .height-text {
+        font-size: 60px;
+        text-align: center;
+        margin-top: 0px;
+    }
+
+    .heightDivs {
+        width: 48%;
+        height: 200px;
+        display: inline;
+        float: left;
+        background-color: white;
+        margin-left: 1%;
+        border: solid black 1px;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+        border-radius: 3%;
+    }
+
+    .height-headers {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .loader {
+        position: absolute;
+        display: none;
+        top: 30%;
+        left: 40%;
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        z-index: 9999999999999;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+
+
   </head>
   <body id="mateme">
     <div id="container">
@@ -45,7 +260,11 @@
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
   helpText="Review Time" />
 
-  <input type="text" 
+  <input type="text" name="summary"
+  tt_onLoad="__$('keyboard').style.display = 'none';changeNextBtn();buildVitalsPage();buildKeyPad();buildTable();"
+  tt_pageStyleClass="NoControls" helpText="Vitals" optional="false"/>
+
+<!--   <input type="text" 
   name="pulse" 
   id="pulse" 
   field_type="number" 
@@ -81,7 +300,7 @@
   tt_onUnLoad="displayMessage('diastolic_blood_pressure');" 
   tt_pageStyleClass="NumbersWithUnknown" 
   min="50" 
-  max="100" />
+  max="100" /> -->
 
   <select name="type_of_pain" 
   id="type_of_pain" 
@@ -169,6 +388,34 @@
   condition="__$('ready_for_discharge').value.match(/YES/i)" /> -->
 
 </form>
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content" style="height: 400px;">
+                <span class="close">&times;</span>
+                <p id="modal-error"></p>
+                <div style="margin-top: 3%; width: 100%; height:200px;">
+                    <div class="heightDivs" onclick="selectHeight(this);" id="current-height">
+
+                    </div>
+                    <div class="heightDivs" id="new-height" onclick="selectHeight(this);">
+
+                    </div>
+                </div>
+                <div style="margin-top:4%;">
+
+                    <button id="saveObs" class="button red navButton" style="width: 80px; visibility: hidden;"
+                            onclick="showConfirm('Are you sure you want to void height?', 'voidHeight');">
+                        <span>Void</span></button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="loader"></div>
+    </div>
+</div>
 
         <div id="footer">
         </div>
