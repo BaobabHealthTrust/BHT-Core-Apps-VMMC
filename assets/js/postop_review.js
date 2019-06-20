@@ -13,19 +13,6 @@ function changeDecimalToColon() {
     decimal.setAttribute("onmousedown", "press(':')")
 }
 
-function displayMessage(options) {
-
-    setTimeout(function() {
-
-        if (options == 'systolic_blood_pressure' && __$('systolic_blood_pressure').value >= 140 && __$('systolic_blood_pressure').value <= 150) {
-            showMessage('Note: Client Systolic Blood Pressure is high', null, 10000000000);
-        } else if (options == 'diastolic_blood_pressure' && __$('diastolic_blood_pressure').value >= 50 && __$('diastolic_blood_pressure').value <= 90) {
-            showMessage('Note: Client Diastolic Blood Pressure is high', null, 10000000000);
-        }
-
-    }, 100);
-}
-
 function updateTimeLeft() {
     time = $("touchscreenInput" + tstCurrentPage).value.replace(":", '');
     time_with_colon = $("touchscreenInput" + tstCurrentPage).value
@@ -388,7 +375,7 @@ const HIV_PROGRAM_ID = 1
         }
 
         if (pulse < 50 || pulse > 120) {
-            showMessage("Pulse reading is out of bounds");
+            showMessage("Pulse reading is out of range (50 - 120)");
             return false;
         }
 
@@ -450,10 +437,6 @@ const HIV_PROGRAM_ID = 1
         bp_diastolic = bp.split("/")[1];
         bp_systolic = bp.split("/")[0];
 
-        if (sessionStorage.programID == 12) {
-
-        } else {
-            // Validations NOT for ANC
             if (bp_diastolic < 30 || bp_diastolic > 200) {
 
                 showMessage("Diastolic reading is out of normal range");
@@ -467,7 +450,17 @@ const HIV_PROGRAM_ID = 1
                 return true;
 
             }
-        }
+            setTimeout(function() {
+            if (bp_systolic >= 140 && bp_systolic <= 150) {
+                showMessage("NOTE: Client Systolic Blood Pressure is high", null, 10000000000);
+            }
+            if (bp_diastolic >= 50 && bp_diastolic <= 90) {
+                showMessage("NOTE: Client Diastolic Blood Pressure is high", null, 10000000000);
+            }
+            if ((bp_systolic >= 140 && bp_systolic <= 150) && (bp_diastolic >= 50 && bp_diastolic <= 90)) {
+                showMessage("NOTE: Client Systolic and Diastolic Blood Pressure is high", null, 10000000000);
+            }
+        }, 100);
 
         if (!isNumeric(bp_systolic)) {
             showMessage("Not a valid systolic reading.");
