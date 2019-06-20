@@ -49,9 +49,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Diabetes?" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
-  tt_onUnLoad="displayMessage('diabetes');" 
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Medical history');"
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -74,9 +72,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Bleeding disorder?" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
-  tt_onUnLoad="displayMessage('bleeding');" 
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Medical history');" 
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -138,9 +134,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Genital ulcers?" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
-  tt_onUnLoad="displayMessage('ulcers');" 
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Medical history');" 
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -180,10 +174,8 @@
   id="urination" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  helpText="Painful urination?" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Medical history');" 
-  tt_onUnLoad="displayMessage('urination');" 
+  helpText="Painful urination?"
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Medical history');" 
   condition="__$('medical_history').value.match(/YES/i)"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>

@@ -36,6 +36,106 @@ function displayMessage(options){
 		nextButton.setAttribute('onmousedown', 'goNext()');
 	  
 	}
+
+    function changeNextButton(){
+
+      nextButton = document.getElementById("nextButton");
+
+      nextButton.onmousedown = "";
+
+      nextButton.onmousedown = function(){
+
+        notificationMessage();
+
+      }
+
+    }
+    
+    function notificationMessage() {
+        setTimeout(function(){
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'diabetes'){
+           if ((__$('diabetes').value == "")){
+              showMessage("You must enter a value to continue")
+              return;
+            }
+            else if (__$('diabetes').value == 'Yes') {
+
+                customShowMessage('Note: Client has Diabetes and may not be suitable for circumcision',null,10000000000);
+                return;
+            } 
+        }
+        
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'bleeding'){
+
+            if (__$('bleeding').value == ""){
+                showMessage("You must enter a value to continue")
+                return;
+            }else if (__$('bleeding').value == 'Yes'){
+
+                customShowMessage('Note: Client has bleeding disorder and may not be suitable for circumcision',null,10000000000);
+                return;
+            }
+        }
+        
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'ulcers'){
+            if (__$('ulcers').value == ""){
+                showMessage("You must enter a value to continue")
+                return;
+            }else if (__$('ulcers').value == 'Yes') {
+
+                customShowMessage('Note: Client has Genital ulcers and may not be suitable for circumcision',null,10000000000);
+                return;
+            }
+        }
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'urination'){
+            if (__$('urination').value == ""){
+            showMessage("You must enter a value to continue")
+            return;
+            }else if (__$('urination').value == 'Yes') {
+
+                customShowMessage('Note: Client has painful urination and may not be suitable for circumcision',null,10000000000);
+                return;
+            }
+        }
+        
+        gotoNextPage();
+        
+    },100);
+    }
+
+    function customShowMessage(aMessage, withCancel, timed) {
+        if(typeof(tstMessageBar) == "undefined"){
+          document.getElementById("container").innerHTML += "<div id='messageBar' class='messageBar'></div>";
+          
+    }
+      
+      tstMessageBar = document.getElementById('messageBar');
+      
+      //var messageBar = tstMessageBar;
+      messageBar.innerHTML = aMessage +
+      "<br />" + (typeof(withCancel) != "undefined" ? (withCancel == true ?
+          "<button onmousedown='tstMessageBar.style.display = \"none\"; " +
+          "clearTimeout(tstTimerHandle);'><span>Cancel</span></button>" : "") : "") +
+      "<button style='width: 200px;' class='button_blue' onmousedown='gotoNextPage();tstMessageBar.style.display = \"none\"; " +
+      "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>OK</span></button>";
+      if (aMessage.length > 0) {
+        
+        messageBar.style.display = 'block';
+      
+      }
+
+    }
+
+    function hideMessage(){
+
+      tstMessageBar.style.display = 'none'
+
+    }
+
+
     
     function goNext(){
 
