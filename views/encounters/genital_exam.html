@@ -59,9 +59,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Ulcer" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Genital exam');" 
-  tt_onUnLoad="displayMessage('ulcer_id');" 
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Genital exam');"  
   condition="__$('circumcision_idd').value != 'Full'"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -72,9 +70,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   helpText="Urethral discharge" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Genital exam');" 
-  tt_onUnLoad="displayMessage('urethral_id');" 
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Genital exam');" 
   condition="__$('circumcision_idd').value != 'Full'"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -84,10 +80,8 @@
   id="swelling_id" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  helpText="Scrotum swelling/tenderness" 
-  tt_requireNextClick="false" 
-  tt_onLoad="$('nextButton').style.display = 'none';showCategory2('Genital exam');" 
-  tt_onUnLoad="displayMessage('swelling_id');" 
+  helpText="Scrotum swelling/tenderness"  
+  tt_onLoad="changeNextButton();$('nextButton').style.display = 'inline';showCategory2('Genital exam');" 
   condition="__$('circumcision_idd').value != 'Full'"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>

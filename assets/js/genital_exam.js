@@ -5,20 +5,84 @@ var patientID = sessionStorage.getItem("patientID");
 var programID = sessionStorage.getItem("programID");
 var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patientID;
 
+function changeNextButton() {
 
-function displayMessage(options) {
+    nextButton = document.getElementById("nextButton");
 
+    nextButton.onmousedown = "";
+
+    nextButton.onmousedown = function() {
+
+        notificationMessage();
+
+    }
+
+}
+
+function notificationMessage() {
     setTimeout(function() {
 
-        if (options == 'ulcer_id' && __$('ulcer_id').value == 'Yes') {
-            showMessage('Note: Client has Ulcer and may not be suitable for circumcision', null, 10000000000);
-        } else if (options == 'urethral_id' && __$('urethral_id').value == 'Yes') {
-            showMessage('Note: Client has Urethral Discharge and may not be suitable for circumcision', null, 10000000000);
-        } else if (options == 'swelling_id' && __$('swelling_id').value == 'Yes') {
-            showMessage('Note: Client has Scrotum swelling/tenderness and may not be suitable for circumcision', null, 10000000000);
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'ulcer_id') {
+            if ((__$('ulcer_id').value == "")) {
+                showMessage("You must enter a value to continue")
+                return;
+            } else if (__$('ulcer_id').value == 'Yes') {
+
+                customShowMessage('Note: Client has Ulcer and may not be suitable for circumcision', null, 10000000000);
+                return;
+            }
         }
 
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'urethral_id') {
+
+            if (__$('urethral_id').value == "") {
+                showMessage("You must enter a value to continue")
+                return;
+            } else if (__$('urethral_id').value == 'Yes') {
+
+                customShowMessage('Note: Client has Urethral Discharge and may not be suitable for circumcision', null, 10000000000);
+                return;
+            }
+        }
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'swelling_id') {
+            if (__$('swelling_id').value == "") {
+                showMessage("You must enter a value to continue")
+                return;
+            } else if (__$('swelling_id').value == 'Yes') {
+
+                customShowMessage('Note: Client has Scrotum swelling or tenderness and may not be suitable for circumcision', null, 10000000000);
+                return;
+            }
+        }
+
+        gotoNextPage();
+
     }, 100);
+}
+
+function customShowMessage(aMessage, withCancel, timed) {
+    if (typeof(tstMessageBar) == "undefined") {
+        document.getElementById("container").innerHTML += "<div id='messageBar' class='messageBar'></div>";
+
+    }
+
+    tstMessageBar = document.getElementById('messageBar');
+
+    //var messageBar = tstMessageBar;
+    messageBar.innerHTML = aMessage +
+        "<br />" + (typeof(withCancel) != "undefined" ? (withCancel == true ?
+            "<button onmousedown='tstMessageBar.style.display = \"none\"; " +
+            "clearTimeout(tstTimerHandle);'><span>Cancel</span></button>" : "") : "") +
+        "<button style='width: 200px;' class='button_blue' onmousedown='gotoNextPage();tstMessageBar.style.display = \"none\"; " +
+        "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>OK</span></button>";
+    if (aMessage.length > 0) {
+
+        messageBar.style.display = 'block';
+
+    }
+
 }
 
 function changeSubmitFunction() {
@@ -242,8 +306,8 @@ function postGenitalExamObs(encounter) {
     return;
 }
 
-function nextPage(){
+function nextPage() {
 
-  nextEncounter(patientID, programID);
+    nextEncounter(patientID, programID);
 
 }
