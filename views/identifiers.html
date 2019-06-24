@@ -26,24 +26,34 @@
 </head>
 <body>
 
-    <div class="demo-header-cell demo-left">
-    <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
+    <div class="demo-header-cell demo-left" style="width: 100%;">
+      <div style="width: 48%; float: left;">
+    <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
       <div class="birthdates">
         <span class="headers">
           <strong>Temperature:</strong>
         </span> 
-        <span id="date-lmp"></span> 
+        <span id="temperature"></span> 
       </div>
-      <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="fundus-by-lmp"></span></div>
-      <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="anc-visits"></span></div>
-    
+      <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="bp"></span></div>
+      <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="weight"></span></div>      
+      <div class="addresses"><span class="headers"><strong>Pulse Rate:</strong></span>&nbsp;<span id="pulse"></span></div>
+    </div>
+     <div style="width: 48%; float: right;">
+          <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp; Post-Op Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
+      <div class="birthdates">
+        <span class="headers">
+          <strong>Pulse Rate:</strong>
+        </span> 
+        <span id="postop-pulse"></span> 
+      </div>
+      <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="post-op-bp"></span></div>
+      <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="weight"></span></div>
+    </div>
+    </div>
     </div>
 
       <script>
-      if(sessionStorage.programID === "1" && sessionStorage.switchedFromANC){
-        sessionStorage.setItem("programID", 12);
-        sessionStorage.setItem("switchedFromANC", false);
-      }
       var apiURL = sessionStorage.getItem("apiURL");
       var apiPort = sessionStorage.getItem("apiPort");
       var apiProtocol = sessionStorage.getItem("apiProtocol");
@@ -51,18 +61,19 @@
       var program_id = sessionStorage.programID;
 
       function ajaxRequest() {
-        var url = 'http://' + apiURL + ':' + apiPort 
+        var url = apiProtocol+'://' + apiURL + ':' + apiPort 
         url += '/api/v1/programs/'+program_id+'/patients/' + id;
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
+          
 
           if (this.readyState == 4) {
             if (this.status == 200) {
               var results = JSON.parse(this.responseText);
-              document.getElementById("date-lmp").innerHTML = ((results.date_of_lnmp !== "") ? results.date_of_lnmp : "No LMP Date Available");
-              document.getElementById("fundus-by-lmp").innerHTML = ((results.fundus !== "") ? results.fundus : "")  
-              document.getElementById("anc-visits").innerHTML = ((results.anc_visits !== "") ? results.anc_visits : "No ANC visit Number Available");
-              document.getElementById("current-outcome").innerHTML =  ((results.current_outcome !== "") ? results.current_outcome : "No Outcome Available");
+              document.getElementById("temperature").innerHTML = ((results.vitals_temperature !== "") ? results.vitals_temperature : "Not Available");
+              document.getElementById("bp").innerHTML = ((results.vitals_bp !== "") ? results.vitals_bp : "No BP Available"); 
+              document.getElementById("weight").innerHTML = ((results.vitals_weight !== "") ? results.vitals_weight : "No Weight Available");
+              document.getElementById("pulse").innerHTML =  ((results.vitals_pulse !== "") ? results.vitals_pulse : "Not Available");
             }
           }
         };
@@ -76,16 +87,30 @@
 
       ajaxRequest();
 
-function fundusByLMP(fundus_by_lmp) {
-  var year = fundus_by_lmp.split('/')[2];
-  var month = fundus_by_lmp.split('/')[1];
-  var day = fundus_by_lmp.split('/')[0];
-  fundus_by_lmp = (year + '-' + month + '-' + day);
+      function postopVitalsAjaxRequest() {
+        var url = 'http://' + apiURL + ':' + apiPort 
+        url += '/api/v1/programs/'+program_id+'/patients/' + id;
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
 
-  var date1 = new Date(sessionStorage.sessionDate);
-  var date2 = new Date(moment(fundus_by_lmp).format('YYYY-MM-DD'));
-  return dateDiffInMonths(date1, date2);
-}
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              var results = JSON.parse(this.responseText);
+              document.getElementById("postop-pulse").innerHTML = ((results.postop_pulse_rate !== "") ? results.postop_pulse_rate : "No Purse rate Available");
+              document.getElementById("post-op-bp").innerHTML = ((results.postop_bp !== "") ? results.postop_bp : "No BP Available")  
+              document.getElementById("weight").innerHTML = ((results.vitals_weight !== "") ? results.vitals_weight : "No Weight Available");
+            }
+          }
+        };
+        try {
+          req.open('GET', url, true);
+          req.setRequestHeader('Authorization', sessionStorage.getItem('authorization'));
+          req.send(null);
+        } catch (e) {
+        }
+      }
+
+      postopVitalsAjaxRequest();
 
 function dateDiffInMonths(dt2, dt1) {
   var months;
