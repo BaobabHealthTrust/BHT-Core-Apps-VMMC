@@ -31,13 +31,13 @@
     <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
       <div class="birthdates">
         <span class="headers">
-          <strong>Temperature:</strong>
+          <strong>Pulse Rate:</strong>
         </span> 
-        <span id="temperature"></span> 
+        <span id="pulse"></span> 
       </div>
       <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="bp"></span></div>
       <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="weight"></span></div>      
-      <div class="addresses"><span class="headers"><strong>Pulse Rate:</strong></span>&nbsp;<span id="pulse"></span></div>
+      <div class="addresses"><span class="headers"><strong>Temperature:</strong></span>&nbsp;<span id="temperature"></span></div>
     </div>
      <div style="width: 48%; float: right;">
           <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp; Post-Op Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
@@ -48,7 +48,7 @@
         <span id="postop-pulse"></span> 
       </div>
       <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="post-op-bp"></span></div>
-      <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="weight"></span></div>
+      <div class="addresses"><span class="headers"><strong>BMI:</strong></span>&nbsp;<span id="bmi"></span></div>
     </div>
     </div>
     </div>
@@ -98,7 +98,7 @@
               var results = JSON.parse(this.responseText);
               document.getElementById("postop-pulse").innerHTML = ((results.postop_pulse_rate !== "") ? results.postop_pulse_rate : "No Purse rate Available");
               document.getElementById("post-op-bp").innerHTML = ((results.postop_bp !== "") ? results.postop_bp : "No BP Available")  
-              document.getElementById("weight").innerHTML = ((results.vitals_weight !== "") ? results.vitals_weight : "No Weight Available");
+              document.getElementById("bmi").innerHTML = ((results.vitals_bmi !== "") ? results.vitals_bmi : "No BMI Available");
             }
           }
         };
