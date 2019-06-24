@@ -29,13 +29,66 @@ function changeDecimalToColon() {
     decimal.setAttribute("onmousedown", "press(':')")
 }
 
-function checkAge(age) {
-    if (patientAge <= 15 && __$('procedure_type').value == 'Forceps Guided') {
-        showMessage('Note: Forceps guided is not recommended for clients under the age of 15', null, 10000000000);
-        return;
-    } else if (patientAge > 15 && __$('procedure_type').value == 'Dorsal Slit') {
-        showMessage('Note: Dorsal Slit is recommended for clients under the age of 15', null, 10000000000);
+function changeButton() {
+
+    nextButton = document.getElementById("nextButton");
+
+    nextButton.onmousedown = "";
+
+    nextButton.onmousedown = function() {
+
+        checkAge();
+
     }
+
+}
+
+function checkAge() {
+    setTimeout(function() {
+
+        if (__$("touchscreenInput" + tstCurrentPage).name == 'procedure_type') {
+            if ((__$('procedure_type').value == "")) {
+                
+                showMessage("You must enter a value to continue")
+                return;
+            } else if (patientAge <= 15 && __$('procedure_type').value == 'Forceps Guided') {
+
+                customShowMessage('Note: Forceps guided is not recommended for clients under the age of 15', null, 10000000000);
+                return;
+            } else if (patientAge > 15 && __$('procedure_type').value == 'Dorsal Slit') {
+
+                customShowMessage('Note: Dorsal Slit is recommended for clients under the age of 15', null, 10000000000);
+
+            } else {
+
+                gotoNextPage();
+            }
+        }
+
+    }, 100);
+}
+
+function customShowMessage(aMessage, withCancel, timed) {
+    if (typeof(tstMessageBar) == "undefined") {
+        document.getElementById("container").innerHTML += "<div id='messageBar' class='messageBar'></div>";
+
+    }
+
+    tstMessageBar = document.getElementById('messageBar');
+
+    //var messageBar = tstMessageBar;
+    messageBar.innerHTML = aMessage +
+        "<br />" + (typeof(withCancel) != "undefined" ? (withCancel == true ?
+            "<button onmousedown='tstMessageBar.style.display = \"none\"; " +
+            "clearTimeout(tstTimerHandle);'><span>Cancel</span></button>" : "") : "") +
+        "<button style='width: 200px;' class='button_blue' onmousedown='gotoNextPage();tstMessageBar.style.display = \"none\"; " +
+        "clearTimeout(tstTimerHandle); eval(tstTimerFunctionCall);'><span>OK</span></button>";
+    if (aMessage.length > 0) {
+
+        messageBar.style.display = 'block';
+
+    }
+
 }
 
 function checkTime() {
