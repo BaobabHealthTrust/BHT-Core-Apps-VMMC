@@ -15,7 +15,7 @@
       "activitiesIcon": "/assets/images/medical_history.png",
       "url": "/apps/VMMC/views/encounters/medical_history.html"
     },
-    "hiv status": {
+    "update hiv status": {
       "available": true,
       "activitiesIcon": "/assets/images/hiv-staging.png",
       "url": "/apps/VMMC/views/encounters/hiv_status.html"
@@ -57,7 +57,7 @@
       ["REGISTRATION CONSENT", "registration consent"],
       ["MEDICAL HISTORY", "medical history"],
       ["VITALS", "vitals"],
-      ["HIV STATUS", "hiv status"],
+      ["UPDATE HIV STATUS", "update hiv status"],
       ["GENITAL EXAMINATION", "genital examination"],
       ["SUMMARY ASSESSMENT", "summary assessment"],
       ["CIRCUMCISION", "circumcision"],
