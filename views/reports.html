@@ -47,47 +47,25 @@
 <script>
 
   var reports = [
-    ["Cohort / Disaggregated","/apps/ART/assets/images/", "/apps/ART/views/cohort_tool/revised_cohort_menu.html"],
-    ["Cohort analyzer","","/report/summarize_cohort_report?type=summary"],
-    ["Cohort Survival Analysis","","/cohort_tool/revised_cohort_survival_analysis_menu"],
-    ["Supervision","","/clinic/supervision_tab"],
-    ["Data Cleaning Tools", "","/clinic/data_cleaning_tab"],
-
-    ["Drug dispensation","","/report/drug_menu"],
-    ["Pre-ART","","/cohort_tool/cohort_menu?type=pre_art"],
-    ["View appointments","","/properties/select_date"],
-    ["Missed Appointments", "","/report/missed_appointment_duration?type=missed"],
-    ["Defaulted patients", "","/report/missed_appointment_duration?type=defaulter"],
-    //["Avg ART clinic duration for patients", "","/report/avg_waiting_time_for_art_patients"],
-    //["Flat tables reports", "","/cohort_tool/flat_tables_revised_cohort_menu"],
-    ["HTN Reports", "","/cohort_tool/select_htn_date"],
-    ["Fast Track Reports", "","/cohort_tool/select_fast_track_date"],
-    ["PEPFAR disaggregated report","","/report/missed_appointment_duration?type=disaggregated"],
-    ["DHA-Fast Track Reports", "","/cohort_tool/select_dha_fast_track_date"]
+    ["District quarterly report","/apps/VMMC/assets/images/", "/apps/VMMC/views/reports/vmmc/revised_cohort_menu.html"],
+    ["District monthly report","",""]
   ];
 
 function reportGrouping(group) {
   if(group == 'main'){
     return [
-      ['MoH','/assets/images/login-logos/Malawi-Coat_of_arms_of_arms.png','MoH', 'function'],
-      ["Clinic", "","Clinic",'function'],
-      ["PEPFAR","/assets/images/login-logos/PEPFAR.png","PEPFAR",'function']
+      ["Quarterly", "","Quarterly",'function'],
+      ["Monthly", "","Monthly",'function']
     ];
-  }else if(group == 'MoH'){
+  }else if(group == 'Quarterly'){
     return [
-      ['Cohort','','/apps/ANC/views/reports/cohort_duration.html?type=cohort', 'link'],
-      ["Monthly", "","/apps/ANC/views/reports/cohort_duration.html?type=monthly",'link'],
+      ['District quarterly report','','/apps/VMMC/views/reports/vmmc/revised_cohort_menu.html', 'link']
     ];
-  }else if(group == 'Clinic'){
+  }else if(group == 'Monthly'){
     return [
-      ['Appointments','','/apps/ART/views/reports/clinic/appointments.html', 'link'],
-      ["Defaulter list","","/apps/ART/views/reports/clinic/report_dates.html?report=defaulter_list",'link'],
-      ["Incomplete visits","","#",'link']
+      ['District monthly report','','/apps/VMMC/views/reports/vmmc/monthly_report.html', 'link']
     ];
-  }else if(group === 'PEPFAR'){
-    return [
-      ['Disaggregated','','/apps/ANC/views/reports/pepfar/disaggregated_duration.html', 'link']
-    ];
+  }else{
   }  
 }	
 
@@ -96,7 +74,7 @@ function buildReportLinks(group) {
   var row = null;
   var reportContainer = document.getElementById("reports-container");
   reportContainer.innerHTML = null;
-
+  
   var reports = reportGrouping(group);
 
   for(var i = 0 ; i < reports.length ; i++){
