@@ -147,7 +147,7 @@
    </head>
    <body>
       <div style="background-color: #fff; height: 660px; width: 99%; padding: 5px;">
-         <table style="width: 100%; border: 1px solid #999; -moz-user-select: none;">
+         <table id="report" style="width: 100%; border: 1px solid #999; -moz-user-select: none;">
             <tbody>
                <tr>
                   <th style="font-size: 1.8em; color: #eee; background-color: #999; padding: 10px;">
@@ -228,7 +228,7 @@
                                              <td style="border-top: 1px solid #999; border-left: 1px solid #999;">
                                                 Neonates
                                              </td>
-                                             <td class="valueCell age-1">
+                                             <td class="valueCell age-1" id="neonates">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -237,7 +237,7 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 0px solid #999;">
                                                 1 month - 14years
                                              </td>
-                                             <td class="valueCell age-2">
+                                             <td class="valueCell age-2" id="first_agegroup">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -246,7 +246,7 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 0px solid #999;">
                                                 15 - 24 years
                                              </td>
-                                             <td class="valueCell age-3">
+                                             <td class="valueCell age-3" id="second_agegroup">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -255,7 +255,7 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 0px solid #999;">
                                                 25 - 49 years
                                              </td>
-                                             <td class="valueCell age-4">
+                                             <td class="valueCell age-4" id="third_agegroup">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -264,7 +264,7 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 1px solid #999;">
                                                 50 years and above
                                              </td>
-                                             <td class="valueCell age-5">
+                                             <td class="valueCell age-5" id="fourth_agegroup">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -273,7 +273,7 @@
                                              <td style="font-style:italic;">
                                                 Total clients
                                              </td>
-                                             <td class="valueCell age-category-total">
+                                             <td class="valueCell age-category-total" id="total_clients">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -843,6 +843,34 @@
       </div>
    </body>
    <script type="text/javascript">
+      function loadIndicators() {
+         function fetchIndicatorsFromApi(cells) {
+            var cell = cells[0];
+            var url = "http://localhost:3001/api/v1/programs/21/reports/cohort?start_date=2019-01-01&name=" + cell.id;
+            var  xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+             if (this.readyState === 4 && this.status === 200) {
+               indicator = JSON.parse(this.responseText);
+               console.log(indicator);
+               cell.innerHTML = indicator[cell.id];
+               fetchIndicatorsFromApi(cells.slice(1));
+             } else if (this.readyState === 4) {
+               cell.innerHTML = 'error!';
+               fetchIndicatorsFromApi(cells.slice(1));
+             }
+           };
+           xhttp.open("GET", url, true);
+           xhttp.setRequestHeader('Authorization', sessionStorage.getItem("authorization"));
+           xhttp.setRequestHeader('Content-type', "application/json");
+           xhttp.send();
+         }
+
+         fetchIndicatorsFromApi(Array.from(document.querySelectorAll('.valueCell')));
+      }
+
+      loadIndicators();
+
       function getIndicators() {
         if(!runningReport)
           return;
@@ -851,7 +879,7 @@
 
         document.getElementById('report-cover').style = 'display: inline;';
         
-        var url = apiProtocol + "://" + apiURL + ":" + apiPort + "";
+        var url = apiProtocol + "://" + apiURL + ":" + apiPort + "/api/v1/programs/21/reports/cohort?name=";
         url += Quarter + " " + Year;
 
         if(regenerate_report === true) {
@@ -880,19 +908,7 @@
 
       }
 
-      // var myVar;
       var runningReport = true;
-
-      // function checkIfReportReady() {
-      //   myVar = setTimeout(getIndicators, 60000);
-      //   if(runningReport == false)
-      //     location.reload()
-
-      // }
-
-      // function myStopFunction() {
-      //   clearTimeout(myVar);
-      // }
 
       function getUrlVars() {
         var vars = {};
