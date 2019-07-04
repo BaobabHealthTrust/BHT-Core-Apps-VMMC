@@ -64,6 +64,9 @@ function checkAge() {
                 gotoNextPage();
             }
         }
+        else {
+            gotoNextPage();
+        }
 
     }, 100);
 }
