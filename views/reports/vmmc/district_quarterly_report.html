@@ -138,6 +138,11 @@
          text-align: center;
          font-weight: bold;
          }
+         .valueCellBlank {
+         border: 3px solid #FFFFFF;
+         text-align: center;
+         font-weight: bold;
+         }
          .static{
          border: 3px solid #000;
          text-align: center;
@@ -342,9 +347,9 @@
                                           <tr>
                                              <td></td>
                                              <td style="font-style:italic;">
-                                                Total Eligible Clients
+                                                &nbsp;
                                              </td>
-                                             <td class="valueCell total_eligible_clients" id="eligible_clients">
+                                             <td style="border-top: 3px solid #000;">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -361,7 +366,7 @@
                                              <td style="border-top: 1px solid #999; border-left: 1px solid #999;">
                                                 Full
                                              </td>
-                                             <td class="valueCell full-circumcision-status">
+                                             <td class="valueCell full-circumcision-status" id="circumcision_full">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -370,7 +375,7 @@
                                              <td style="border-left: 1px solid #999;">
                                                 Partial
                                              </td>
-                                             <td class="valueCell partial-circumcision-status" style="border-top: 0px">
+                                             <td class="valueCell partial-circumcision-status" style="border-top: 0px" id="circumcision_partial">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -379,7 +384,16 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 1px solid #999;">
                                                 None
                                              </td>
-                                             <td class="valueCell none-circumcision-status" style="border-top: 0px; border-bottom:0px;">
+                                             <td class="valueCell none-circumcision-status" style="border-top: 0px; border-bottom:0px;" id="circumcision_none">
+                                                &nbsp;
+                                             </td>
+                                          </tr>
+                                          <tr>
+                                             <td></td>
+                                             <td style="font-style:italic;">
+                                                &nbsp;
+                                             </td>
+                                             <td style="border-top: 3px solid #000;">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -394,7 +408,7 @@
                                              <td style="border-top: 1px solid #999; border-left: 1px solid #999; width: 60%;">
                                                 None
                                              </td>
-                                             <td class="valueCell none-contraindications">
+                                             <td class="valueCell none-contraindications" id="contraindications_none">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -403,7 +417,7 @@
                                              <td style="border-left: 1px solid #999; border-bottom: 1px solid #999;">
                                                 Yes
                                              </td>
-                                             <td class="valueCell yes-contraindications">
+                                             <td class="valueCell yes-contraindications" id="contraindications_yes">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -412,7 +426,7 @@
                                              <td style="font-style:italic;">
                                                 Total Eligible Clients
                                              </td>
-                                             <td class="valueCell contraindications-eligible-clients">
+                                             <td class="valueCell contraindications-eligible-clients" id="contraindications_total">
                                                 &nbsp;
                                              </td>
                                           </tr>
