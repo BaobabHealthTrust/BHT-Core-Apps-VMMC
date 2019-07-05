@@ -398,7 +398,7 @@ function postCircumcisioObs(encounter) {
             "Device": 9610,
             "Other": 6408
         },
-        //adverse events yes/no answers
+        //intra-op adverse events yes/no answers
         {
             "yes": 1065,
             "no": 1066
@@ -501,7 +501,7 @@ function postCircumcisioObs(encounter) {
                 value_coded: adverseEventsAnswer
             },
             {
-                concept_id: 9643,
+                concept_id: 9590,
                 value_text: specificAdverseEvent
             },
             {
