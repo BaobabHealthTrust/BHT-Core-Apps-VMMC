@@ -63,8 +63,18 @@ function goNext() {
         if (field.value == "") {
             showMessage("Please enter value to continue.")
             return
+        } else if (field.value.match(/Other/gi)) {
+            gotoNextPage();
         } else {
-            getKnowledgeSourceObs();
+            submitConsentEncounter();
+        }
+
+    } else if (field.name == "other") {
+        if (field.value == "") {
+            showMessage("Please enter value to continue.")
+            return
+        } else {
+            submitConsentEncounter();
         }
     }
 
@@ -96,6 +106,9 @@ function submitConsentEncounter() {
 
 function postConsentObs(encounter) {
 
+    var field = $("touchscreenInput" + tstCurrentPage);
+
+
     var obs = {
 
         encounter_id: encounter.encounter_id,
@@ -111,6 +124,10 @@ function postConsentObs(encounter) {
 
     }
 
+    if (field.name == "knowledge_source"){
+        getKnowledgeSourceObs();
+    }
+
     if (consent_obs.length > 0) {
 
         for (var i = 0; i < consent_obs.length; i++) {
@@ -120,6 +137,13 @@ function postConsentObs(encounter) {
         }
 
     }
+
+    if (field.name == "other"){
+
+        var otherStatus = field.value;
+        obs.observations.push({concept_id: 6408, value_text: otherStatus});
+    }
+
 
     submitParameters(obs, "/observations", "nextPage")
 
@@ -162,7 +186,7 @@ function getKnowledgeSourceObs() {
 
     }
 
-    submitConsentEncounter();
+    //submitConsentEncounter();
 
 }
 

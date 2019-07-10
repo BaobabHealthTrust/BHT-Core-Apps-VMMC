@@ -27,6 +27,7 @@
     <div id="container">
       <div id="content">
         <style type="text/css">
+          .tt_controls_other #date, #star, #slash, #minus, #plus, #percent, #decimal, #comma, #date { display: none; }
 
         </style>
 
@@ -47,6 +48,7 @@
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   multiple="multiple" 
+  tt_onUnload = "getKnowledgeSourceObs();"
   condition="__$('consent').value.toUpperCase() == 'YES'"
   tt_onLoad="showCategory2('Registration');changeSubmitFunction();" 
   helpText="How did you learn of this (VMMC) service?"><option value=''></option>
@@ -59,6 +61,15 @@
     <option value="Community Mobiliser">Community Mobiliser</option>
     <option value="Television/Radio">Television/Radio</option>
     <option value="Other">Other</option></select>
+
+  <input type="text" 
+  name="other" 
+  id="other" 
+  field_type="alpha" 
+  allowFreeText="true"
+  tt_onLoad="showCategory2('Registration');changeSubmitFunction();"
+  helpText="Specify other knowledge source" 
+  optional="true" />
 
 </form>
         <div id="footer">
