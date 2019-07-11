@@ -451,14 +451,24 @@ const HIV_PROGRAM_ID = 1
 
             }
             setTimeout(function() {
-            if (bp_systolic >= 140 && bp_systolic <= 150) {
+            if (bp_systolic >= 70 && bp_systolic < 90) {
+                showMessage("NOTE: Client Systolic Blood Pressure is low", null, 10000000000);
+            }
+            if (bp_diastolic >= 40 && bp_diastolic < 60) {
+                showMessage("NOTE: Client Diastolic Blood Pressure is low", null, 10000000000);
+            }
+            if (bp_systolic >= 140 && bp_systolic <= 190) {
                 showMessage("NOTE: Client Systolic Blood Pressure is high", null, 10000000000);
             }
-            if (bp_diastolic >= 50 && bp_diastolic <= 90) {
+            if (bp_diastolic >= 90 && bp_diastolic < 100) {
                 showMessage("NOTE: Client Diastolic Blood Pressure is high", null, 10000000000);
             }
-            if ((bp_systolic >= 140 && bp_systolic <= 150) && (bp_diastolic >= 50 && bp_diastolic <= 90)) {
-                showMessage("NOTE: Client Systolic and Diastolic Blood Pressure is high", null, 10000000000);
+            if ((bp_systolic >= 130 && bp_systolic <= 139) && (bp_diastolic >= 80 && bp_diastolic <= 89)) {
+
+                showMessage("NOTE: Client has pre-high blood pressure", null, 10000000000);
+            }
+            if ((bp_systolic >= 140 && bp_systolic <= 190) && (bp_diastolic >= 90 && bp_diastolic <= 100)) {
+                showMessage("NOTE: Client has high blood pressure", null, 10000000000);
             }
         }, 100);
 
