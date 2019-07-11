@@ -6,8 +6,8 @@
 
     <script language="javascript" defer="true">
       tstUsername = "";
-      tstUserKeyboardPref = "qwerty";
-      tstCurrentDate = "";
+      tstUserKeyboardPref = "";
+      tstCurrentDate = sessionStorage.sessionDate;
 
     </script>
 
@@ -69,9 +69,10 @@
   id="follow_up_date" 
   field_type="date" 
   allowFreeText="true" 
-  tt_onLoad="showCategory2('Follow-up review');"
+  tt_onLoad="showCategory2('Follow-up review');initializeDate();setAbsoluteMaxYear();"
   helptext="Follow up date" 
-  absoluteMin="2019-05-10" />
+  maxDate=""
+  absoluteMin="" />
 
   <input type="text" 
   name="advance_follow_up" 

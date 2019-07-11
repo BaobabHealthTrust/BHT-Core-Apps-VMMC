@@ -440,6 +440,138 @@ function clicked(e) {
       sideEffectsHash[key]["sev"] = 'True';
     }
 
+function initializeDate() {
+
+    currentDate = new Date(sessionStorage.sessionDate)
+
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+    year = currentDate.getFullYear()
+
+    month = currentDate.getMonth();
+
+    day = currentDate.getDate();
+
+    birthDate = new Date(sessionStorage.patientDOB);
+
+    birth_year = birthDate.getFullYear();
+
+    birth_month = birthDate.getMonth();
+
+    birth_day = birthDate.getDate();
+
+
+
+    setTimeout(__$("today").onmousedown, 0);
+
+    setTimeout(function() {
+
+        __$("touchscreenInput" + tstCurrentPage).value = "";
+
+    }, 3);
+
+    var year_plus = __$("dateselector_nextYear").onmousedown
+
+    var year_minus = __$("dateselector_preYear").onmousedown
+
+    __$("dateselector_nextYear").onmousedown = function() {
+
+        if (parseInt(year) <= parseInt(__$("dateselector_year").value)) {
+
+
+
+        } else {
+
+            setTimeout(year_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preYear").onmousedown = function() {
+
+        if (parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) {
+
+
+
+        } else {
+
+            setTimeout(year_minus, 0);
+
+        }
+
+    }
+
+    var month_plus = __$("dateselector_nextMonth").onmousedown
+
+    var month_minus = __$("dateselector_preMonth").onmousedown
+
+    __$("dateselector_nextMonth").onmousedown = function() {
+
+        if ((parseInt(year) <= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(month) <= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(month_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preMonth").onmousedown = function() {
+
+        if ((parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(birth_month) >= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(month_minus, 0);
+
+        }
+
+    }
+
+    var day_plus = __$("dateselector_nextDay").onmousedown
+
+    var day_minus = __$("dateselector_preDay").onmousedown
+
+    __$("dateselector_nextDay").onmousedown = function() {
+
+        if ((parseInt(day) <= parseInt(__$("dateselector_day").value)) &&
+
+            (parseInt(year) <= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(month + 1) <= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(day_plus, 0);
+
+        }
+
+    }
+
+    __$("dateselector_preDay").onmousedown = function() {
+
+        if ((parseInt(birth_day) >= parseInt(__$("dateselector_day").value)) &&
+
+            (parseInt(birth_year) >= parseInt(__$("dateselector_year").value)) &&
+
+            (parseInt(birth_month + 1) >= parseInt(months.indexOf(__$("dateselector_month").value) + 1))) {
+
+        } else {
+
+            setTimeout(day_minus, 0);
+
+        }
+
+    }
+
+}
+
 function changeNextButton() {
     var nextButton = document.getElementById('nextButton');
     nextButton.setAttribute("onmousedown", "postFollowUp();")
