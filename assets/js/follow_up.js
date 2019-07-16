@@ -574,9 +574,24 @@ function initializeDate() {
 
 function changeNextButton() {
     var nextButton = document.getElementById('nextButton');
-    nextButton.setAttribute("onmousedown", "postFollowUp();")
+    nextButton.setAttribute("onmousedown", "goNext();")
 }
 
+function goNext() {
+
+    var field = $("touchscreenInput" + tstCurrentPage);
+
+    if (field.name == "family_planning") {
+
+        if (field.value == "") {
+            showMessage("Please enter a value to continue.");
+        } else if (field.value < 0 || field.value > 50) {
+            showMessage("Value out of range (0 - 50)");
+        } else {
+            postFollowUp();
+        }
+    }
+}
 
 function postFollowUp() {
     var currentTime = moment().format(' HH:mm:ss');
