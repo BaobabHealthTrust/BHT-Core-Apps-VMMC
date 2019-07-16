@@ -34,12 +34,32 @@
 
 <form>
 
-  <select name="previous_hiv_done" 
-  id="previous_hiv_done" 
+  <select name="known_hiv_positive" 
+  id="known_hiv_positive" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
   tt_onLoad="showCategory2('HIV/ART status');" 
-  helpText="Previous HIV Test done"><option value=''></option>
+  helpText="Known HIV+ (Documented test results)"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="currently_taking_arvs" 
+  id="currently_taking_arvs" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('HIV/ART status');"
+  helpText="Currently taking ARVs?"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
+  <select name="hiv_test_done_today" 
+  id="hiv_test_done_today?" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false"
+  tt_onLoad="showCategory2('HIV/ART status');" 
+  helpText="HIV Test done today?"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
@@ -48,58 +68,13 @@
   id="hiv_test_result" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('HIV/ART status');"
-  condition="__$('previous_hiv_done').value.match(/YES/i)" 
-  helpText="Previous HIV Test result"><option value=''></option>
-  <option value=""></option>
-  <option value="Positive">Positive</option>
-  <option value="Negative">Negative</option>
-  <option value="Indeterminate">Indeterminate</option></select>
-
-  <select name="currently_on_art" 
-  id="currently_on_art" 
-  tt_pageStyleClass="NoKeyboard" 
-  allowFreeText="false" 
-  condition="__$('hiv_test_result').value == 'Positive'"
-  tt_onLoad="showCategory2('HIV/ART status');changeNextButton();"
-  helpText="Currently on ART Treatment?"><option value=''></option>
-  <option value=""></option>
-  <option value="Yes">Yes</option>
-  <option value="No">No</option></select>
-
-  <select name="hiv_test_done_today"  
-  id="hiv_test_done_today?" 
-  tt_pageStyleClass="NoKeyboard" 
-  condition="__$('previous_hiv_done').value.match(/NO/i) || __$('hiv_test_result').value != 'Positive'"
-  allowFreeText="false"
-  tt_onLoad="showCategory2('HIV/ART status');" 
-  helpText="HIV Test done today?"><option value=''></option>
-  <option value=""></option>
-  <option value="Yes">Yes</option>
-  <option value="No">No</option></select>
-
-  <select name="current_hiv_test_result" 
-  id="current_hiv_test_result" 
-  tt_pageStyleClass="NoKeyboard" 
-  allowFreeText="false" 
   tt_onLoad="showCategory2('HIV/ART status');changeNextButton();"
   condition="__$('hiv_test_done_today?').value.match(/YES/i)" 
-  helpText="Current HIV Test result"><option value=''></option>
+  helpText="HIV Test result"><option value=''></option>
   <option value=""></option>
   <option value="Positive">Positive</option>
   <option value="Negative">Negative</option>
   <option value="Indeterminate">Indeterminate</option></select>
-
-  <select name="started_art" 
-  id="started_art" 
-  tt_pageStyleClass="NoKeyboard" 
-  allowFreeText="false" 
-  condition="__$('current_hiv_test_result').value == 'Positive'"
-  tt_onLoad="showCategory2('HIV/ART status');changeNextButton();"
-  helpText="Started ART Treatment?"><option value=''></option>
-  <option value=""></option>
-  <option value="Yes">Yes</option>
-  <option value="No">No</option></select>
 
   <select name="hiv_test_not_done_reason" 
   id="hiv_test_not_done_reason" 

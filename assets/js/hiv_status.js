@@ -27,33 +27,46 @@ function postHivStatus() {
 
 function postHivStatusObs(encounter) {
 
-    var hivStatusUpdate = document.getElementById('known_hiv_positive').value;
-    var artStatus = document.getElementById('currently_taking_arvs').value;
-    var hivTestDone = document.getElementById('hiv_test_done_today?').value;
-    var currentHivStatus = document.getElementById('hiv_test_result').value;
-    var hivNotDone = document.getElementById('hiv_test_not_done_reason').value;
+    var previousHivStatus = document.getElementById('previous_hiv_done').value;
+    var hivResultStatus = document.getElementById('hiv_test_result').value;
+    var currentArtStatus = document.getElementById('currently_on_art').value;    
+    var currentHivStatus = document.getElementById('hiv_test_done_today?').value;
+    var currentHivResult = document.getElementById('current_hiv_test_result').value;
+    var startedArtStatus = document.getElementById('started_art').value;
+    var testReason = document.getElementById('hiv_test_not_done_reason').value;
 
     var conceptAnswers = [
-        //Yes No answers
+        //previous hiv done Yes No answers
         {
             "yes": 1065,
             "no": 1066
         },
-        //Yes No answers
-        {
-            "yes": 1065,
-            "no": 1066
-        },
-        //Yes No answers
-        {
-            "yes": 1065,
-            "no": 1066
-        },
-        //Status update
+        //previous hiv result
         {
             "positive": 703,
             "negative": 664,
             "indeterminate": 1138
+        },
+        //currently on art Yes No answers
+        {
+            "yes": 1065,
+            "no": 1066
+        },
+        //hiv test done today Yes No answers
+        {
+            "yes": 1065,
+            "no": 1066
+        },
+        //current hiv Status update
+        {
+            "positive": 703,
+            "negative": 664,
+            "indeterminate": 1138
+        },
+        //started art today Yes No answers
+        {
+            "yes": 1065,
+            "no": 1066
         },
         // Reason HIV Test not done
         {
@@ -63,84 +76,116 @@ function postHivStatusObs(encounter) {
         }
     ];
 
-    var hivStatusUpdateAnswer;
-    var artStatusAnswer;
-    var hivTestDoneAnswer;
-    var hivStatusAnswer;
-    var hivNotDoneAnswer;
-    switch (hivStatusUpdate.toUpperCase()) {
+    var previousHivStatusAnswer;
+    var hivResultStatusAnswer;
+    var currentArtStatusAnswer;
+    var currentHivStatusAnswer;
+    var currentHivResultAnswer;
+    var startedArtStatusAnswer;
+    var testReasonAnswer;
+    switch (previousHivStatus.toUpperCase()) {
         case 'YES':
-            hivStatusUpdateAnswer = conceptAnswers[0].yes;
+            previousHivStatusAnswer = conceptAnswers[0].yes;
             break;
         case 'NO':
-            hivStatusUpdateAnswer = conceptAnswers[0].no;
+            previousHivStatusAnswer = conceptAnswers[0].no;
             break;
         default:
             break;
     }
-    switch (artStatus.toUpperCase()) {
-        case 'YES':
-            artStatusAnswer = conceptAnswers[1].yes;
+    switch (hivResultStatus.toUpperCase()) {
+        case 'POSITIVE':
+            hivResultStatusAnswer = conceptAnswers[1].positive;
             break;
-        case 'NO':
-            artStatusAnswer = conceptAnswers[1].no;
+        case 'NEGATIVE':
+            hivResultStatusAnswer = conceptAnswers[1].negative;
             break;
-        default:
+        case 'INDETERMINATE':
+            hivResultStatusAnswer = conceptAnswers[1].indeterminate;
             break;
     }
-    switch (hivTestDone.toUpperCase()) {
+    switch (currentArtStatus.toUpperCase()) {
         case 'YES':
-            hivTestDoneAnswer = conceptAnswers[2].yes;
+            currentArtStatusAnswer = conceptAnswers[2].yes;
             break;
         case 'NO':
-            hivTestDoneAnswer = conceptAnswers[2].no;
+            currentArtStatusAnswer = conceptAnswers[2].no;
             break;
         default:
             break;
     }
     switch (currentHivStatus.toUpperCase()) {
-        case 'POSITIVE':
-            hivStatusAnswer = conceptAnswers[3].positive;
+        case 'YES':
+            currentHivStatusAnswer = conceptAnswers[3].yes;
             break;
-        case 'NEGATIVE':
-            hivStatusAnswer = conceptAnswers[3].negative;
+        case 'NO':
+            currentHivStatusAnswer = conceptAnswers[3].no;
             break;
-        case 'INDETERMINATE':
-            hivStatusAnswer = conceptAnswers[3].indeterminate;
+        default:
             break;
     }
-    switch (hivNotDone.toUpperCase()) {
+    switch (currentHivResult.toUpperCase()) {
+        case 'POSITIVE':
+            currentHivResultAnswer = conceptAnswers[4].positive;
+            break;
+        case 'NEGATIVE':
+            currentHivResultAnswer = conceptAnswers[4].negative;
+            break;
+        case 'INDETERMINATE':
+            currentHivResultAnswer = conceptAnswers[4].indeterminate;
+            break;
+    }
+    switch (startedArtStatus.toUpperCase()) {
+        case 'YES':
+            startedArtStatusAnswer = conceptAnswers[5].yes;
+            break;
+        case 'NO':
+            startedArtStatusAnswer = conceptAnswers[5].no;
+            break;
+        default:
+            break;
+    }
+    switch (testReason.toUpperCase()) {
         case 'REFUSED':
-            hivNotDoneAnswer = conceptAnswers[4].refused;
+            testReasonAnswer = conceptAnswers[6].refused;
             break;
         case 'PREVIOUS POSITIVE':
-            hivNotDoneAnswer = conceptAnswers[4].previousPositive;
+            testReasonAnswer = conceptAnswers[6].previousPositive;
             break;
         case 'NO REAGENTS AVAILABLE':
-            hivNotDoneAnswer = conceptAnswers[4].noReagentsAvailable;
+            testReasonAnswer = conceptAnswers[6].noReagentsAvailable;
     }
 
     var obs = {
         encounter_id: encounter["encounter_id"],
         observations: [{
-                concept_id: 9566,
-                value_coded: hivStatusUpdateAnswer
+                concept_id: 9655,
+                value_coded: previousHivStatusAnswer
             },
             {
-                concept_id: 9567,
-                value_coded: artStatusAnswer
+                concept_id: 9656,
+                value_coded: hivResultStatusAnswer
+            },
+            {
+                concept_id: 7010,
+                value_coded: currentArtStatusAnswer
             },
             {
                 concept_id: 9568,
-                value_coded: hivTestDoneAnswer
+                value_coded: currentHivStatusAnswer
             },
             {
-                concept_id: 9228,
-                value_coded: hivStatusAnswer
+                concept_id: 2169,
+                value_coded: currentHivResultAnswer
+
+            },
+            {
+                concept_id: 8883,
+                value_coded: startedArtStatusAnswer
             },
             {
                 concept_id: 9569,
-                value_coded: hivNotDoneAnswer
+                value_coded: testReasonAnswer
             }
         ]
     };
