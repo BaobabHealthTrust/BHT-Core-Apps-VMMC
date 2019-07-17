@@ -16,6 +16,8 @@ var patientID = sessionStorage.getItem("patientID");
 
 var programID = sessionStorage.programID;
 
+var patientAge = sessionStorage.patientAge;
+
 var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patient_id;
 
 var timedEvent;
@@ -35,6 +37,12 @@ var knowledge_source = {
     "Community Mobiliser": 9572,
     "Television/Radio": 9573,
     "Other": 6408
+}
+function verifyConsentAge() {
+    var field = $("touchscreenInput" + tstCurrentPage);
+    if(patientAge < 13) {
+        __$('helpText0').innerHTML = "Has the Guardian/Parent given consent?";
+    }
 }
 
 function changeSubmitFunction() {
