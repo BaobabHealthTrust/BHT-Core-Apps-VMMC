@@ -23,6 +23,8 @@
     <script type="text/javascript" src="/assets/js/moment.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/common.js"></script>
     <script type="text/javascript" src="/apps/VMMC/assets/js/circumcision.js"></script>
+    <link rel="stylesheet" href="/assets/css/provider.css" type="text/css">
+    <script type="text/javascript" src="/assets/js/provider.js"></script>
 
   </head>
   <body id="mateme">
@@ -194,22 +196,22 @@
   id="time_left_table" 
   field_type="number" 
   allowFreeText="true"
-  tt_onLoad="changeDecimalToColon(); changeSettings();showCategory2('Circumcision');" 
+  tt_onLoad="changeDecimalToColon(); changeSettings();showCategory2('Circumcision');showProviderModal();changeModalHeader();changeNextButton();" 
   validationRule="(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" 
   validationMessage="Bad time format (Use this format: 14<b>:30</b>)" 
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" 
   helpText="Time left table" />
 
-  <input type="text" 
-  name="given_name" 
-  id="given_name" 
-  field_type="alpha" 
-  tt_onLoad="showCategory2('Circumcision');"
-  helpText="Assistant circumciser's first name" 
-  ajaxURL="/search/given_name?search_string=" 
-  allowFreeText="true" />
+<!--   <input type="text" 
+  name="assistant_name" 
+  id="assistant_name" 
+  field_type="alpha"
+  optional="true" 
+  tt_pageStyleClass="NoKeyboard" 
+  tt_onLoad="showCategory2('Circumcision');showProviderModal();changeModalHeader();"
+  allowFreeText="true" /> -->
 
-  <input type="text" 
+ <!--  <input type="text" 
   name="family_name" 
   id="family_name" 
   field_type="alpha" 
@@ -217,7 +219,7 @@
   helpText="Assistant circumciser's last name" 
   ajaxURL="/search/family_name?search_string=" 
   tt_onLoad="updateAssistantCircumciserDetails();" 
-  allowFreeText="true" />
+  allowFreeText="true" /> -->
 </form>
         <div id="footer">
         </div>

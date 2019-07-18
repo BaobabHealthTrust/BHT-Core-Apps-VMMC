@@ -377,9 +377,9 @@ function postCircumcisioObs(encounter) {
     var adverseEvents = document.getElementById('adverse_events?').value;
     var specificAdverseEvent = document.getElementById('specific_adverse_event').value;
     var specificAdverseEventManagement = document.getElementById('specific_adverse_event_management').value;
-    var timeLeftTable = document.getElementById('time_left_table').value;
-    var givenName = document.getElementById('given_name').value;
-    var familyName = document.getElementById('family_name').value;
+    var timeLeftTable = __$("touchscreenInput" + tstCurrentPage).value;
+    var assistantCircumciser = providerID;
+    // var familyName = document.getElementById('family_name').value;
     var conceptAnswers = [
         //anaesthesia type answers
         {
@@ -513,12 +513,8 @@ function postCircumcisioObs(encounter) {
                 value_text: timeLeftTable
             },
             {
-                concept_id: 6346,
-                value_text: givenName
-            },
-            {
-                concept_id: 6347,
-                value_text: familyName
+                concept_id: 9670,
+                value_text: providerName
             }
         ]
     };
