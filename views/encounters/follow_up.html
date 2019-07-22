@@ -141,7 +141,7 @@
   id="counselling" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('Follow-up review');"
+  tt_onLoad="showCategory2('Follow-up review');changeNextButton();"
   helpText="Was counselling done?"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
@@ -151,6 +151,7 @@
   name="family_planning" 
   id="family_planning" 
   field_type="number" 
+  condition="sessionStorage.patientAge > 13"
   absoluteMin=0 
   absoluteMax=50
   tt_pageStyleClass="Numeric NumbersOnly"

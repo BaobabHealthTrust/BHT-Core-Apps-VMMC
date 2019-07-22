@@ -581,6 +581,17 @@ function goNext() {
 
     var field = $("touchscreenInput" + tstCurrentPage);
 
+    if (field.name == "counselling") {
+
+        if (field.value == "") {
+            showMessage("Please enter a value to continue.");
+        } else if (patientAge <= 13) {
+            postFollowUp();
+        } else {
+            gotoNextPage();
+        }
+    }
+
     if (field.name == "family_planning") {
 
         if (field.value == "") {
