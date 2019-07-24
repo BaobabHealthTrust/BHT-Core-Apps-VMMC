@@ -32,12 +32,15 @@
         </style>
 
 <form>
+  <input id="dummyField" name="dummyField"
+      tt_onload="verifyConsentAge(); gotoNextPage();" tt_pageStyleClass="NoKeyboard"
+      helpText="Processing:" optional="true"/>
 
   <select name="consent" 
    id="consent" 
    tt_pageStyleClass="NoKeyboard" 
    allowFreeText="false"
-   tt_onLoad="showCategory2('Registration');verifyConsentAge();changeSubmitFunction();" 
+   tt_onLoad="showCategory2('Registration')" 
    helpText="Has the client given consent?"><option value=''></option>
      <option value=""></option>
     <option value="Yes">Yes</option>

@@ -16,7 +16,7 @@ var patientID = sessionStorage.getItem("patientID");
 
 var programID = sessionStorage.programID;
 
-var patientAge = sessionStorage.patientAge;
+var patientAge = moment().diff(moment(sessionStorage.birthdate), 'years');
 
 var tt_cancel_destination = "/views/patient_dashboard.html?patient_id=" + patient_id;
 
@@ -40,8 +40,8 @@ var knowledge_source = {
 }
 function verifyConsentAge() {
     var field = $("touchscreenInput" + tstCurrentPage);
-    if(patientAge < 13) {
-        __$('helpText0').innerHTML = "Has the Guardian/Parent given consent?";
+    if (patientAge <= 13) {
+        __$('consent').setAttribute('helpText', 'Has the Guardian/Parent given consent?');
     }
 }
 
