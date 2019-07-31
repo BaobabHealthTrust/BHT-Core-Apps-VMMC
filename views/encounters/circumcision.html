@@ -172,14 +172,17 @@
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <input type="text" 
-  name="specific_adverse_event" 
+  <select name="specific_adverse_event" 
   id="specific_adverse_event" 
-  field_type="alpha" 
-  allowFreeText="true" 
+  allowFreeText="false" 
   tt_onLoad="showCategory2('Circumcision');"
   condition="__$('adverse_events?').value.match(/YES/i)" 
-  helpText="Specify adverse event" />
+  helpText="Select adverse event"><option value=''></option>
+  <option value=""></option>
+  <option value="None">None</option>
+  <option value="Mild">Mild</option>
+  <option value="Moderate">Moderate</option>
+  <option value="Severe">Severe</option></select>
 
   <input type="text" 
   name="specific_adverse_event_management" 
@@ -187,8 +190,7 @@
   field_type="alpha" 
   allowFreeText="true" 
   tt_onLoad="showCategory2('Circumcision');"
-  condition="__$('adverse_events?').value.match(/YES/i)" 
-  optional="true" 
+  condition="__$('specific_adverse_event').value != 'None'" 
   helpText="Specify adverse event management" />
 
   <input type="text" 

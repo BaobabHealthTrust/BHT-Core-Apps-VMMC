@@ -402,6 +402,13 @@ function postCircumcisioObs(encounter) {
         {
             "yes": 1065,
             "no": 1066
+        },
+        //specific adverse event answers
+        {
+            "None": 1107,
+            "Mild": 1901,
+            "Moderate": 1900,
+            "Severe": 1903
         }
     ];
 
@@ -409,6 +416,7 @@ function postCircumcisioObs(encounter) {
     var anaesthesiaStatusAnswer;
     var procedureTypeAnswer;
     var adverseEventsAnswer;
+    var specificAdverseEventAnswer;
     switch (anaesthesiaType.toUpperCase()) {
         case 'LOCAL ANAESTHESIA':
             anaesthesiaTypeAnswer = conceptAnswers[0]["Local Anaesthesia"];
@@ -447,6 +455,20 @@ function postCircumcisioObs(encounter) {
             adverseEventsAnswer = conceptAnswers[3].no;
             break;
         default:
+            break;
+    }
+    switch (specificAdverseEvent.toUpperCase()) {
+        case 'NONE':
+            specificAdverseEventAnswer = conceptAnswers[4]["None"];
+            break;
+        case 'MILD':
+            specificAdverseEventAnswer = conceptAnswers[4]["Mild"];
+            break;
+        case 'MODERATE':
+            specificAdverseEventAnswer = conceptAnswers[4]["Moderate"];
+            break;
+        case 'SEVERE':
+            specificAdverseEventAnswer = conceptAnswers[4]["Severe"];
             break;
     }
 
@@ -502,7 +524,7 @@ function postCircumcisioObs(encounter) {
             },
             {
                 concept_id: 9590,
-                value_text: specificAdverseEvent
+                value_coded: specificAdverseEventAnswer
             },
             {
                 concept_id: 9639,
