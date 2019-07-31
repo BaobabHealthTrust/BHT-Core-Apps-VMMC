@@ -40,7 +40,7 @@ var knowledge_source = {
 }
 function verifyConsentAge() {
     var field = $("touchscreenInput" + tstCurrentPage);
-    if (patientAge <= 13) {
+    if (patientAge <= 18) {
         __$('consent').setAttribute('helpText', 'Has the Guardian/Parent given consent?');
     }
 }
