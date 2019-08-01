@@ -685,9 +685,7 @@ function postPostOpReviewObs(encounter) {
     var bandageType = document.getElementById('bandage').value;
     var otherAeType = document.getElementById('other_ae').value;
     var specifyOtherAe = document.getElementById('specify_other_ae').value;
-    var medsGiven = document.getElementById('meds_given?').value;
-    var medicationSpecify = document.getElementById('medication').value;
-    var readyForDischarge = __$("touchscreenInput" + tstCurrentPage).value;
+    var medsGiven = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
         //type of pain answers
         {
@@ -713,11 +711,6 @@ function postPostOpReviewObs(encounter) {
         {
             "yes": 1065,
             "no": 1066
-        },
-        //ready_for_discharge yes/no answers
-        {
-            "yes": 1065,
-            "no": 1066
         }
     ];
 
@@ -725,7 +718,6 @@ function postPostOpReviewObs(encounter) {
     var bandageTypeAnswer;
     var otherAeTypeAnswer;
     var medsGivenAnswer;
-    var readyForDischargeAnswer;
     switch (typeOfPain.toUpperCase()) {
         case 'NONE':
             typeOfPainAnswer = conceptAnswers[0]["None"];
@@ -775,16 +767,6 @@ function postPostOpReviewObs(encounter) {
         default:
             break;
     }
-    switch (readyForDischarge.toUpperCase()) {
-        case 'YES':
-            readyForDischargeAnswer = conceptAnswers[4].yes;
-            break;
-        case 'NO':
-            readyForDischargeAnswer = conceptAnswers[4].no;
-            break;
-        default:
-            break;
-    }
 
     var obs = {
         encounter_id: encounter["encounter_id"],
@@ -811,14 +793,6 @@ function postPostOpReviewObs(encounter) {
             {
                 concept_id: 9595,
                 value_coded: medsGivenAnswer
-            },
-            {
-                concept_id: 9596,
-                value_text: medicationSpecify
-            },
-            {
-                concept_id: 9597,
-                value_coded: readyForDischargeAnswer
             }
         ]
     };
@@ -849,8 +823,22 @@ function postPostOpReviewObs(encounter) {
                     obs.observations.push({concept_id: 5087, value_numeric: vital})
                 }
             }
-    submitParameters(obs, "/observations", "nextPage")
+    submitParameters(obs, "/observations", "treatmentRedirect")
     return;
+}
+
+function treatmentRedirect(){
+    if (__$("touchscreenInput" + tstCurrentPage).name == 'meds_given?') {
+            if ((__$('meds_given?').value == "")) {
+                
+                showMessage("You must enter a value to continue")
+                return;
+            } else if (__$('meds_given?').value == 'Yes') {
+                window.location = "/apps/VMMC/views/encounters/vmmc_prescription.html";
+            } else {
+                nextPage();
+            }
+    }
 }
 
 function nextPage() {

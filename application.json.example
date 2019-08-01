@@ -40,6 +40,11 @@
       "activitiesIcon": "/assets/images/consultation.png",
       "url": "/apps/VMMC/views/encounters/postop_review.html"
     },
+    "treatment": {
+      "available": true,
+      "activitiesIcon": "/assets/images/dispensing.png",
+      "url": "/apps/VMMC/views/encounters/vmmc_prescription.html"
+    },
     "appointment": {
       "available": true,
       "activitiesIcon": "/assets/images/appointment.png",
@@ -61,7 +66,8 @@
       ["GENITAL EXAMINATION", "genital examination"],
       ["SUMMARY ASSESSMENT", "summary assessment"],
       ["CIRCUMCISION", "circumcision"],
-      ["POST-OP REVIEW", "post-op review"], 
+      ["POST-OP REVIEW", "post-op review"],
+      ["TREATMENT", "treatment"], 
       ["APPOINTMENT", "appointment"],      
       ["FOLLOW UP", "follow up"]
     ]

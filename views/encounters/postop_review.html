@@ -308,17 +308,27 @@
   helpText="Specify other Adverse Event" 
   condition="__$('other_ae').value != 'None'" />
 
+  <select name="ready_for_discharge" 
+  id="ready_for_discharge" 
+  tt_pageStyleClass="NoKeyboard" 
+  allowFreeText="false" 
+  tt_onLoad="showCategory2('Post-op review');"
+  helpText="Ready for discharge"><option value=''></option>
+  <option value=""></option>
+  <option value="Yes">Yes</option>
+  <option value="No">No</option></select>
+
   <select name="meds_given?" 
   id="meds_given?" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
-  tt_onLoad="showCategory2('Post-op review');"
+  tt_onLoad="showCategory2('Post-op review');changeNextButton();"
   helpText="Medication given?"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
   <option value="No">No</option></select>
 
-  <input type="text" 
+<!--   <input type="text" 
   name="medication" 
   id="medication" 
   field_type="alpha" 
@@ -336,7 +346,7 @@
   helpText="Ready for discharge"><option value=''></option>
   <option value=""></option>
   <option value="Yes">Yes</option>
-  <option value="No">No</option></select>
+  <option value="No">No</option></select> -->
 
 <!--   <input type="text" 
   name="appointment_date" 
