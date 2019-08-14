@@ -575,7 +575,7 @@
                                                 border-bottom: 1px solid #999;">
                                                 After 48 Hours
                                              </td>
-                                             <td class="valueCell after-48-hours">
+                                             <td class="valueCell after-48-hours" id="first_review_after_48_hours">
                                                 &nbsp;
                                              </td>
                                           </tr>
@@ -858,7 +858,10 @@
    <script type="text/javascript">
       function loadIndicators() {
          function fetchIndicatorsFromApi(cells) {
+            if (cells.length === 0) return;
+
             var cell = cells[0];
+
             var url = "http://localhost:3001/api/v1/programs/21/reports/cohort?start_date=2019-01-01&name=" + cell.id;
             var  xhttp = new XMLHttpRequest();
 

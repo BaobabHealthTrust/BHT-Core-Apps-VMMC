@@ -35,11 +35,6 @@
       "activitiesIcon": "/assets/images/medical_male_circumcision.png",
       "url": "/apps/VMMC/views/encounters/circumcision.html"
     },
-    "post-op review": {
-      "available": true,
-      "activitiesIcon": "/assets/images/consultation.png",
-      "url": "/apps/VMMC/views/encounters/postop_review.html"
-    },
     "treatment": {
       "available": true,
       "activitiesIcon": "/assets/images/dispensing.png",
@@ -49,6 +44,11 @@
       "available": true,
       "activitiesIcon": "/assets/images/appointment.png",
       "url": "/views/patient/appointment.html"
+    },
+    "post-op review": {
+      "available": true,
+      "activitiesIcon": "/assets/images/consultation.png",
+      "url": "/apps/VMMC/views/encounters/postop_review.html"
     },
     "follow up": {
       "available": true,
@@ -66,9 +66,9 @@
       ["GENITAL EXAMINATION", "genital examination"],
       ["SUMMARY ASSESSMENT", "summary assessment"],
       ["CIRCUMCISION", "circumcision"],
-      ["POST-OP REVIEW", "post-op review"],
       ["TREATMENT", "treatment"], 
-      ["APPOINTMENT", "appointment"],      
+      ["APPOINTMENT", "appointment"],
+      ["POST-OP REVIEW", "post-op review"],      
       ["FOLLOW UP", "follow up"]
     ]
   },
