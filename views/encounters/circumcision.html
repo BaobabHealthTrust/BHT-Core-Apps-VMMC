@@ -190,7 +190,7 @@
   field_type="alpha" 
   allowFreeText="true" 
   tt_onLoad="showCategory2('Circumcision');"
-  condition="__$('specific_adverse_event').value != 'None'" 
+  condition="__$('adverse_events?').value.match(/YES/i) && __$('specific_adverse_event').value != 'None'" 
   helpText="Specify adverse event management" />
 
   <input type="text" 
