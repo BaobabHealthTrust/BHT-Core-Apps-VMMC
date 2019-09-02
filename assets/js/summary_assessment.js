@@ -35,7 +35,6 @@
         var SpecifyContraindicationsStatus = document.getElementById('Specify_contraindications').value;        
         var circumcisionAssessmentStatus = document.getElementById('circumcision_assessment').value;
         var notSuitableStatus = document.getElementById('not_suitable').value;
-        var appointmentDateStatus = document.getElementById('appointment_date').value;
         var circumcisionConsentStatus = document.getElementById('circumcision_consent').value;
         var conceptAnswers = [
             //contraindications Yes/No answers
@@ -128,20 +127,31 @@
             default:
                 break;
         }
-
-            var obs = {
+        var obs = {
             encounter_id: encounter["encounter_id"],
             observations: [
                 { concept_id: 9641, value_coded: contraindicationsStatusAnswer },
                 { concept_id: 9661, value_coded: contraindicationsOptionsAnswer },
                 { concept_id: 7215, value_text: otherContraindicationsStatus },
                 { concept_id: 9642, value_text: SpecifyContraindicationsStatus },
-                { concept_id: 9643, value_coded: circumcisionAssessmentStatusAnswer },
-                { concept_id: 7215, value_text: notSuitableStatus },
-                { concept_id: 5096, value_datetime: appointmentDateStatus },
-                { concept_id: 9644, value_coded: circumcisionConsentAnswer }
-            ]
-        };
+                { concept_id: 9643, value_coded: circumcisionAssessmentStatusAnswer }
+                
+                ]
+            };
+
+            if ((__$('circumcision_assessment').value == 'Yes')){
+
+                obs.observations.push({ concept_id: 9644, value_coded: circumcisionConsentAnswer })
+            } else{
+
+                if(__$("touchscreenInput" + tstCurrentPage).name == 'not_suitable') {
+                   obs.observations.push({ concept_id: 7215, value_text: __$("touchscreenInput" + tstCurrentPage).value})
+
+                }else{
+                  obs.observations.push({ concept_id: 7215, value_text: notSuitableStatus })
+                }
+            }
+
         submitParameters(obs, "/observations", "nextPage")
         return;
     }

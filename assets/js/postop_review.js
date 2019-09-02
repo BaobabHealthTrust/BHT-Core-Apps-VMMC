@@ -823,22 +823,8 @@ function postPostOpReviewObs(encounter) {
                     obs.observations.push({concept_id: 5087, value_numeric: vital})
                 }
             }
-    submitParameters(obs, "/observations", "treatmentRedirect")
+    submitParameters(obs, "/observations", "nextPage")
     return;
-}
-
-function treatmentRedirect(){
-    if (__$("touchscreenInput" + tstCurrentPage).name == 'meds_given?') {
-            if ((__$('meds_given?').value == "")) {
-                
-                showMessage("You must enter a value to continue")
-                return;
-            } else if (__$('meds_given?').value == 'Yes') {
-                window.location = "/apps/VMMC/views/encounters/vmmc_prescription.html";
-            } else {
-                nextPage();
-            }
-    }
 }
 
 function nextPage() {

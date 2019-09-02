@@ -92,11 +92,11 @@
   id="not_suitable" 
   field_type="alpha" 
   allowFreeText="true" 
-  tt_onLoad="showCategory2('Summary assessment');" 
+  tt_onLoad="showCategory2('Summary assessment');changeNextButton();" 
   helpText="Specify reason" 
   condition="__$('circumcision_assessment').value.match(/NO/i)" />
 
-  <input type="text" 
+<!--   <input type="text" 
   name="appointment_date" 
   id="appointment_date" 
   field_type="date" 
@@ -105,7 +105,7 @@
   maxDate="2019-08-09" 
   tt_onLoad="__$('today').style.display = 'none';__$('Unknown').style.display = 'none';showCategory2('Summary assessment');changeNextButton();" 
   helptext="Specify Next Appointment date" 
-  condition="__$('circumcision_assessment').value.match(/NO/i)" />
+  condition="__$('circumcision_assessment').value.match(/NO/i)" /> -->
 
   <select name="circumcision_consent" 
   id="circumcision_consent" 
