@@ -60,9 +60,9 @@
     "url": "/apps/VMMC/views/activities.html",
     "tasks": [
       ["REGISTRATION CONSENT", "registration consent"],
-      ["MEDICAL HISTORY", "medical history"],
-      ["VITALS", "vitals"],
       ["UPDATE HIV STATUS", "update hiv status"],
+      ["VITALS", "vitals"],
+      ["MEDICAL HISTORY", "medical history"],   
       ["GENITAL EXAMINATION", "genital examination"],
       ["SUMMARY ASSESSMENT", "summary assessment"],
       ["CIRCUMCISION", "circumcision"],
