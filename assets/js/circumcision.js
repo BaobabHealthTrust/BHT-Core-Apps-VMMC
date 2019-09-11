@@ -366,7 +366,7 @@ function postCircumcisioObs(encounter) {
     var circumcisionDate = document.getElementById('circumcision_date').value;
     var anaesthesiaTime = document.getElementById('anaesthesia_time').value;
     var anaesthesiaType = document.getElementById('anaesthesia_type').value;
-    var anaesthesiaStatus = document.getElementById('anaesthesia').value;
+    // var anaesthesiaStatus = document.getElementById('anaesthesia').value;
     var lidocaineQuantity = document.getElementById('lidocaine_quantity').value;
     var lidocaineMls = document.getElementById('lidocaine_mls').value;
     var bupivacaineQuantity = document.getElementById('bupivacaine_quantity').value;
@@ -387,10 +387,10 @@ function postCircumcisioObs(encounter) {
             "General Anaesthesia": 9607
         },
         //Anaesthesia answers
-        {
-            "Lidocaine": 4039,
-            "Bupivacaine": 6823
-        },
+        // {
+        //     "Lidocaine": 4039,
+        //     "Bupivacaine": 6823
+        // },
         //procedure type answers
         {
             "Forceps Guided": 9608,
@@ -413,7 +413,7 @@ function postCircumcisioObs(encounter) {
     ];
 
     var anaesthesiaTypeAnswer;
-    var anaesthesiaStatusAnswer;
+    // var anaesthesiaStatusAnswer;
     var procedureTypeAnswer;
     var adverseEventsAnswer;
     var specificAdverseEventAnswer;
@@ -425,14 +425,14 @@ function postCircumcisioObs(encounter) {
             anaesthesiaTypeAnswer = conceptAnswers[0]["General Anaesthesia"];
             break;
     }
-    switch (anaesthesiaStatus.toUpperCase()) {
-        case 'LIDOCAINE':
-            anaesthesiaStatusAnswer = conceptAnswers[1]["Lidocaine"];
-            break;
-        case 'BUBIVACAINE':
-            anaesthesiaStatusAnswer = conceptAnswers[1]["Bupivacaine"];
-            break;
-    }
+    // switch (anaesthesiaStatus.toUpperCase()) {
+    //     case 'LIDOCAINE':
+    //         anaesthesiaStatusAnswer = conceptAnswers[1]["Lidocaine"];
+    //         break;
+    //     case 'BUBIVACAINE':
+    //         anaesthesiaStatusAnswer = conceptAnswers[1]["Bupivacaine"];
+    //         break;
+    // }
     switch (procedureType.toUpperCase()) {
         case 'FORCEPS GUIDED':
             procedureTypeAnswer = conceptAnswers[2]["Forceps Guided"];
@@ -486,24 +486,24 @@ function postCircumcisioObs(encounter) {
                 concept_id: 9585,
                 value_coded: anaesthesiaTypeAnswer
             },
+            // {
+            //     concept_id: 9635,
+            //     value_coded: anaesthesiaStatusAnswer
+            // },
             {
-                concept_id: 9635,
-                value_coded: anaesthesiaStatusAnswer
-            },
-            {
-                concept_id: 9668,
+                concept_id: 9852,
                 value_numeric: lidocaineQuantity
             },
             {
-                concept_id: 9669,
+                concept_id: 9853,
                 value_numeric: lidocaineMls
             },
             {
-                concept_id: 9668,
+                concept_id: 9854,
                 value_numeric: bupivacaineQuantity
             },
             {
-                concept_id: 9669,
+                concept_id: 9855,
                 value_numeric: bupivacaineMls
             },
             {

@@ -69,7 +69,7 @@
   <option value="Local Anaesthesia">Local Anaesthesia (LA)</option>
   <option value="General Anaesthesia">General Anaesthesia (GA)</option></select>
 
-  <select name="anaesthesia" 
+<!--   <select name="anaesthesia" 
   id="anaesthesia" 
   tt_pageStyleClass="NoKeyboard" 
   allowFreeText="false" 
@@ -77,7 +77,7 @@
   helpText="Anaesthesia"><option value=''></option>
   <option value=""></option>
   <option value="Lidocaine">Lidocaine</option>
-  <option value="Bupivacaine">Bupivacaine</option></select>
+  <option value="Bupivacaine">Bupivacaine</option></select> -->
 
   <input type="text" 
   name="lidocaine_quantity" 
@@ -88,7 +88,6 @@
   max="2"  
   tt_onLoad="showCategory2('Circumcision');"
   helpText="Lidocaine quantity given in percentage" 
-  condition="(__$('anaesthesia').value == 'Lidocaine')" 
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
 
   <input type="text" 
@@ -100,7 +99,6 @@
   max="5"  
   tt_onLoad="showCategory2('Circumcision');"
   helpText="Lidocaine quantity given in mls " 
-  condition="(__$('anaesthesia').value == 'Lidocaine')" 
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
 
   <input type="text" 
@@ -113,7 +111,6 @@
   optional="true" 
   tt_onLoad="showCategory2('Circumcision');"
   helpText="Bupivacaine quantity given in percentage" 
-  condition="(__$('anaesthesia').value == 'Bupivacaine')" 
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
 
   <input type="text" 
@@ -126,7 +123,6 @@
   optional="true" 
   tt_onLoad="showCategory2('Circumcision');"
   helpText="Bupivacaine quantity given in mls" 
-  condition="(__$('anaesthesia').value == 'Bupivacaine')" 
   tt_pageStyleClass="Numeric NumbersOnlyWithDecimal" />
 
   <select name="procedure_type" 
