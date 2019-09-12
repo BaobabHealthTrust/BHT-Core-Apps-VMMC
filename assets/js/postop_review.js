@@ -188,6 +188,7 @@ const HIV_PROGRAM_ID = 1
 
         var vitalsAssigned = [
             ["BP", "bp.png", "(mmHG)"],
+            ["SPO2", "spo2.png", "(%)"],
             ["Pulse", "pulse-rate.png", "(BPM)"]
         ];
     }
@@ -357,6 +358,8 @@ const HIV_PROGRAM_ID = 1
             validation_result = validateBP(data);
         } else if (activeInput.id.match(/Pulse/i)) {
             validation_result = validatePulse(data);
+        } else if (activeInput.id.match(/SPO2/i)) {
+            validation_result = validateSPO2(data);
         } else {
             validation_result = true;
         }
@@ -379,6 +382,22 @@ const HIV_PROGRAM_ID = 1
             return false;
         }
 
+        return true;
+    }
+
+    function validateSPO2(spo2) {
+        if (spo2.trim().length < 1)
+            return true;
+
+        if (!isNumeric(spo2)) {
+            showMessage("Not a valid Blood oxygen saturation.<br />Please enter a valid reading.");
+            return false;
+        }
+
+        if (spo2 < 40 || spo2 > 100) {
+            showMessage("Oxygen saturation reading is out of bounds");
+            return false;
+        }
         return true;
     }
 
@@ -819,6 +838,8 @@ function postPostOpReviewObs(encounter) {
 
                     obs.observations.push({concept_id: 5085, value_numeric: bp_systolic});
                     obs.observations.push({concept_id: 5086, value_numeric: bp_diastolic})
+                } else if (name.match(/SPO2/i)) {
+                    obs.observations.push({concept_id: 5092, value_numeric: vital})
                 } else if (name.match(/Pulse/i)) {
                     obs.observations.push({concept_id: 5087, value_numeric: vital})
                 }
