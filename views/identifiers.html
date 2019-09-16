@@ -37,7 +37,7 @@
       </div>
       <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="bp"></span></div>
       <div class="addresses"><span class="headers"><strong>Weight:</strong></span>&nbsp;<span id="weight"></span></div>      
-      <div class="addresses"><span class="headers"><strong>Temperature:</strong></span>&nbsp;<span id="temperature"></span></div>
+      <div class="addresses"><span class="headers"><strong>BMI:</strong></span>&nbsp;<span id="bmi"></span></div>
     </div>
      <div style="width: 48%; float: right;">
           <div class="addresses"><span class="headers"><b><u>&nbsp;&nbsp;&nbsp; Post-Op Vital Signs &nbsp;&nbsp;&nbsp;&nbsp;</u></b></span></div>
@@ -48,7 +48,7 @@
         <span id="postop-pulse"></span> 
       </div>
       <div class="addresses"><span class="headers"><strong>BP:</strong></span>&nbsp;<span id="post-op-bp"></span></div>
-      <div class="addresses"><span class="headers"><strong>BMI:</strong></span>&nbsp;<span id="bmi"></span></div>
+      <div class="addresses"><span class="headers"><strong>SPO2:</strong></span>&nbsp;<span id="postop-spo"></span></div>
     </div>
     </div>
     </div>
@@ -70,7 +70,7 @@
           if (this.readyState == 4) {
             if (this.status == 200) {
               var results = JSON.parse(this.responseText);
-              document.getElementById("temperature").innerHTML = ((results.vitals_temperature !== "") ? results.vitals_temperature : "Not Available");
+              document.getElementById("bmi").innerHTML = ((results.vitals_bmi !== "") ? results.vitals_bmi : "Not Available");
               document.getElementById("bp").innerHTML = ((results.vitals_bp !== "") ? results.vitals_bp : "No BP Available"); 
               document.getElementById("weight").innerHTML = ((results.vitals_weight !== "") ? results.vitals_weight : "No Weight Available");
               document.getElementById("pulse").innerHTML =  ((results.vitals_pulse !== "") ? results.vitals_pulse : "Not Available");
@@ -98,7 +98,7 @@
               var results = JSON.parse(this.responseText);
               document.getElementById("postop-pulse").innerHTML = ((results.postop_pulse_rate !== "") ? results.postop_pulse_rate : "No Purse rate Available");
               document.getElementById("post-op-bp").innerHTML = ((results.postop_bp !== "") ? results.postop_bp : "No BP Available")  
-              document.getElementById("bmi").innerHTML = ((results.vitals_bmi !== "") ? results.vitals_bmi : "No BMI Available");
+              document.getElementById("postop-spo").innerHTML = ((results.postop_spo !== "") ? results.postop_spo : "No SPO2 Available");
             }
           }
         };
