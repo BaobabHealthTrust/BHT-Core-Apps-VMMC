@@ -704,6 +704,7 @@ function postPostOpReviewObs(encounter) {
     var bandageType = document.getElementById('bandage').value;
     var otherAeType = document.getElementById('other_ae').value;
     var specifyOtherAe = document.getElementById('specify_other_ae').value;
+    var readyForDischarge = document.getElementById('ready_for_discharge').value;
     var medsGiven = __$("touchscreenInput" + tstCurrentPage).value;
     var conceptAnswers = [
         //type of pain answers
@@ -726,6 +727,11 @@ function postPostOpReviewObs(encounter) {
             "Moderate": 1900,
             "Severe": 1903
         },
+        //ready for discharge yes/no answers
+        {
+            "yes": 1065,
+            "no": 1066
+        },
         //meds given yes/no answers
         {
             "yes": 1065,
@@ -736,6 +742,7 @@ function postPostOpReviewObs(encounter) {
     var typeOfPainAnswer;
     var bandageTypeAnswer;
     var otherAeTypeAnswer;
+    var readyForDischargeAnswer;
     var medsGivenAnswer;
     switch (typeOfPain.toUpperCase()) {
         case 'NONE':
@@ -776,12 +783,22 @@ function postPostOpReviewObs(encounter) {
             otherAeTypeAnswer = conceptAnswers[2]["Severe"];
             break;
     }
-    switch (medsGiven.toUpperCase()) {
+    switch (readyForDischarge.toUpperCase()) {
         case 'YES':
-            medsGivenAnswer = conceptAnswers[3].yes;
+            readyForDischargeAnswer = conceptAnswers[3].yes;
             break;
         case 'NO':
-            medsGivenAnswer = conceptAnswers[3].no;
+            readyForDischargeAnswer = conceptAnswers[3].no;
+            break;
+        default:
+            break;
+    }
+    switch (medsGiven.toUpperCase()) {
+        case 'YES':
+            medsGivenAnswer = conceptAnswers[4].yes;
+            break;
+        case 'NO':
+            medsGivenAnswer = conceptAnswers[4].no;
             break;
         default:
             break;
@@ -808,6 +825,10 @@ function postPostOpReviewObs(encounter) {
             {
                 concept_id: 9590,
                 value_text: specifyOtherAe
+            },
+            {
+                concept_id: 9597,
+                value_coded: readyForDischargeAnswer
             },
             {
                 concept_id: 9595,
